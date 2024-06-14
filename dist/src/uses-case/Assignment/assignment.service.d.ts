@@ -47,19 +47,15 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import mongoose, { Document } from 'mongoose';
-export declare class Assignment extends Document {
-    title?: string;
-    description?: string;
-    createdBy?: string;
-    assignedTo?: string[];
-    createAtdate: Date;
-    openAt: Date;
-    closedAt: Date;
-    duration: number;
+import { Model } from 'mongoose';
+import { Assignment } from 'src/Schema/Assignment.Schema';
+export declare class AssignmentService {
+    private assignmentModel;
+    constructor(assignmentModel: Model<Assignment>);
+    create(createAssignmentDto: any): Promise<Assignment>;
+    findAll(): Promise<Assignment[]>;
+    findOne(id: string): Promise<Assignment>;
+    update(id: string, updateAssignmentDto: any): Promise<Assignment>;
+    remove(id: string): Promise<Assignment>;
+    addAssignedTo(id: string, userId: string): Promise<Assignment>;
 }
-export declare const AssignmentSchema: mongoose.Schema<Assignment, mongoose.Model<Assignment, any, any, any, mongoose.Document<unknown, any, Assignment> & Assignment & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Assignment, mongoose.Document<unknown, {}, mongoose.FlatRecord<Assignment>> & mongoose.FlatRecord<Assignment> & {
-    _id: mongoose.Types.ObjectId;
-}>;

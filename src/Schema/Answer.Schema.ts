@@ -18,6 +18,9 @@ export class Answer extends Document {
 
   @Prop({ required: true })
   isCorrect: boolean;
+
+  @Prop({ required: true })
+  score: boolean;
   
 }
 

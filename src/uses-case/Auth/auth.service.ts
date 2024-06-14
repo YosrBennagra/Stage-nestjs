@@ -26,6 +26,7 @@ export class AuthService {
     isTwoFactorAuthenticationEnabled:Boolean,
     isEmailConfirmed:Boolean,
     profilePicture:string,
+    role:string
   }> {
     const user = await this.userService.findUserByEmail(email);
     const isMatch = await bcrypt.compare(pass, user?.password);
@@ -44,6 +45,7 @@ export class AuthService {
       isTwoFactorAuthenticationEnabled : user.isTwoFactorAuthenticationEnabled,
       isEmailConfirmed: user.isEmailConfirmed,
       profilePicture:user.profilePicture,
+      role:user.Role
 
     };
   }

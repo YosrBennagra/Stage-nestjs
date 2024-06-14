@@ -31,6 +31,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Boolean)
 ], Answer.prototype, "isCorrect", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Boolean)
+], Answer.prototype, "score", void 0);
 exports.Answer = Answer = __decorate([
     (0, mongoose_1.Schema)()
 ], Answer);

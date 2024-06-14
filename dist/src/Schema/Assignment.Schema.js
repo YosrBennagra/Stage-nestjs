@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.Assignment = void 0;
+exports.AssignmentSchema = exports.Assignment = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Assignment = class Assignment extends mongoose_2.Document {
@@ -34,13 +34,21 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)
-], Assignment.prototype, "date", void 0);
+], Assignment.prototype, "createAtdate", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", String)
-], Assignment.prototype, "time", void 0);
+    __metadata("design:type", Date)
+], Assignment.prototype, "openAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Date)
+], Assignment.prototype, "closedAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], Assignment.prototype, "duration", void 0);
 exports.Assignment = Assignment = __decorate([
     (0, mongoose_1.Schema)()
 ], Assignment);
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(Assignment);
+exports.AssignmentSchema = mongoose_1.SchemaFactory.createForClass(Assignment);
 //# sourceMappingURL=Assignment.Schema.js.map

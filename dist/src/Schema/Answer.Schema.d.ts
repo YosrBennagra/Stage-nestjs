@@ -53,6 +53,7 @@ export declare class Answer extends Document {
     studentId: string;
     content: string;
     isCorrect: boolean;
+    score: boolean;
 }
 export declare const UserSchema: mongoose.Schema<Answer, mongoose.Model<Answer, any, any, any, mongoose.Document<unknown, any, Answer> & Answer & {
     _id: mongoose.Types.ObjectId;

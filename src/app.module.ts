@@ -13,6 +13,7 @@ import { TwoFactorAuthenticationModule } from './uses-case/Auth/TwoFactorAuthent
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './uses-case/Auth/auth.guard';
 import { OpenaiModule } from './uses-case/chatgpt/openai.module';
+import { AssignmentModule } from './uses-case/Assignment/assignment.module';
 
 
 
@@ -27,6 +28,7 @@ import { OpenaiModule } from './uses-case/chatgpt/openai.module';
     UserModule,
     SharedServiceModule,
     AuthModule,
+    AssignmentModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     ConfigModule.forRoot({
@@ -40,10 +42,10 @@ import { OpenaiModule } from './uses-case/chatgpt/openai.module';
   ],
   controllers: [],
   providers: [
-    {
+    /* {
       provide: APP_GUARD,
       useClass: AuthGuard,
-    },
+    }, */
     SharedService,
   ],
 })

@@ -68,6 +68,7 @@ export declare class AuthController {
         isTwoFactorAuthenticationEnabled: Boolean;
         isEmailConfirmed: Boolean;
         profilePicture: string;
+        role: string;
     }>;
     register(registrationData: CreatUserDto): Promise<import("mongoose").Document<unknown, {}, import("../Schema/User.Schema").User> & import("../Schema/User.Schema").User & {
         _id: import("mongoose").Types.ObjectId;

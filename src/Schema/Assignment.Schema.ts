@@ -9,10 +9,10 @@ export class Assignment extends Document {
 
 
   @Prop({ required: false })
-  title: string;
+  title?: string;
 
   @Prop()
-  description: string;
+  description?: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   createdBy?: string;
@@ -21,11 +21,17 @@ export class Assignment extends Document {
   assignedTo?: string[];
 
   @Prop({ required: false })
-  date: Date;
+  createAtdate: Date;
 
   @Prop({ required: false })
-  time: string;
+  openAt: Date;
+
+  @Prop({ required: false })
+  closedAt: Date;
+
+  @Prop({ required: false })
+  duration: number;
 
 }
 
-export const UserSchema = SchemaFactory.createForClass(Assignment);
+export const AssignmentSchema  = SchemaFactory.createForClass(Assignment);

@@ -19,9 +19,8 @@ const Joi = require("joi");
 const emailConfirmation_module_1 = require("./uses-case/Auth/EmailConfirmation/emailConfirmation.module");
 const schedule_1 = require("@nestjs/schedule");
 const twoFactorAuthentication_module_1 = require("./uses-case/Auth/TwoFactorAuthentication/twoFactorAuthentication.module");
-const core_1 = require("@nestjs/core");
-const auth_guard_1 = require("./uses-case/Auth/auth.guard");
 const openai_module_1 = require("./uses-case/chatgpt/openai.module");
+const assignment_module_1 = require("./uses-case/Assignment/assignment.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,6 +34,7 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             shared_service_module_1.SharedServiceModule,
             auth_module_1.AuthModule,
+            assignment_module_1.AssignmentModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,
             config_1.ConfigModule.forRoot({
@@ -48,10 +48,6 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [],
         providers: [
-            {
-                provide: core_1.APP_GUARD,
-                useClass: auth_guard_1.AuthGuard,
-            },
             shared_service_1.SharedService,
         ],
     })

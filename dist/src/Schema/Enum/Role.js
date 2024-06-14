@@ -5,6 +5,7 @@ var Role;
 (function (Role) {
     Role["STUDENT"] = "student";
     Role["TEACHER"] = "teacher";
+    Role["RESPONSABLE"] = "responsable";
     Role["ADMIN"] = "admin";
 })(Role || (exports.Role = Role = {}));
 //# sourceMappingURL=Role.js.map

@@ -9,6 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from "./DTO/Login.dto";
 import * as crypto from 'crypto';
 import EmailService from "../email/email.service";
+import { Role } from "src/Schema/Enum/Role";
 
 @Injectable()
 export class UserService {
@@ -41,6 +42,7 @@ export class UserService {
     const newuser = new this.userModel({
       ...creatUserDto,
       password: hash,
+      Role : Role.STUDENT,
       username: usernameWithNumber,
       isEmailConfirmed: false,
       isTwoFactorAuthenticationEnabled:false,

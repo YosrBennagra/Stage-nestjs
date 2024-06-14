@@ -21,6 +21,7 @@ const mongoose_2 = require("@nestjs/mongoose");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const email_service_1 = require("../email/email.service");
+const Role_1 = require("../../Schema/Enum/Role");
 let UserService = class UserService {
     constructor(emailService, userRe, userModel) {
         this.emailService = emailService;
@@ -48,6 +49,7 @@ let UserService = class UserService {
         const newuser = new this.userModel({
             ...creatUserDto,
             password: hash,
+            Role: Role_1.Role.STUDENT,
             username: usernameWithNumber,
             isEmailConfirmed: false,
             isTwoFactorAuthenticationEnabled: false,
