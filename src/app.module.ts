@@ -14,6 +14,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './uses-case/Auth/auth.guard';
 import { OpenaiModule } from './uses-case/chatgpt/openai.module';
 import { AssignmentModule } from './uses-case/Assignment/assignment.module';
+import { Question } from './Schema/Question.Schema';
+import { QuestionModule } from './uses-case/Question/question.module';
 
 
 
@@ -28,6 +30,7 @@ import { AssignmentModule } from './uses-case/Assignment/assignment.module';
     UserModule,
     SharedServiceModule,
     AuthModule,
+    QuestionModule,
     AssignmentModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,

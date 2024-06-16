@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { TypeQuestion } from './Enum/TypeQuestion';
 
 
 
@@ -8,20 +9,23 @@ import mongoose, { Document } from 'mongoose';
 export class Question extends Document {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
-  testId?: string;
+  assignementId: string;
 
   @Prop({ required: true })
   content: string;
 
   @Prop([String])
-  options: string[];
+  options?: string[];
 
   @Prop({ required: true })
-  correctAnswer: string;
+  correctAnswer?: string;
 
   @Prop({ required: true })
-  type: string;
+  type: TypeQuestion;
+
+  @Prop({ required: true })
+  score?: number;
 
 }
 
-export const UserSchema = SchemaFactory.createForClass(Question);
+export const QuestionSchema = SchemaFactory.createForClass(Question);

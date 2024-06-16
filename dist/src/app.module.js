@@ -21,6 +21,7 @@ const schedule_1 = require("@nestjs/schedule");
 const twoFactorAuthentication_module_1 = require("./uses-case/Auth/TwoFactorAuthentication/twoFactorAuthentication.module");
 const openai_module_1 = require("./uses-case/chatgpt/openai.module");
 const assignment_module_1 = require("./uses-case/Assignment/assignment.module");
+const question_module_1 = require("./uses-case/Question/question.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -34,6 +35,7 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             shared_service_module_1.SharedServiceModule,
             auth_module_1.AuthModule,
+            question_module_1.QuestionModule,
             assignment_module_1.AssignmentModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,

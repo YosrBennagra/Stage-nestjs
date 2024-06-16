@@ -47,18 +47,15 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import mongoose, { Document } from 'mongoose';
-import { TypeQuestion } from './Enum/TypeQuestion';
-export declare class Question extends Document {
-    assignementId: string;
-    content: string;
-    options?: string[];
-    correctAnswer?: string;
-    type: TypeQuestion;
-    score?: number;
+import { Model } from 'mongoose';
+import { Question } from 'src/Schema/Question.Schema';
+export declare class QuestionService {
+    private questionModel;
+    constructor(questionModel: Model<Question>);
+    create(createQuestionDto: any): Promise<Question>;
+    findAll(): Promise<Question[]>;
+    findOne(id: string): Promise<Question>;
+    update(id: string, updateQuestionDto: any): Promise<Question>;
+    remove(id: string): Promise<Question>;
+    findByAssignmentId(assignementId: string): Promise<Question[]>;
 }
-export declare const QuestionSchema: mongoose.Schema<Question, mongoose.Model<Question, any, any, any, mongoose.Document<unknown, any, Question> & Question & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Question, mongoose.Document<unknown, {}, mongoose.FlatRecord<Question>> & mongoose.FlatRecord<Question> & {
-    _id: mongoose.Types.ObjectId;
-}>;

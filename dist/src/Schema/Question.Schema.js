@@ -9,16 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.Question = void 0;
+exports.QuestionSchema = exports.Question = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const TypeQuestion_1 = require("./Enum/TypeQuestion");
 let Question = class Question extends mongoose_2.Document {
 };
 exports.Question = Question;
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Assignment' }),
     __metadata("design:type", String)
-], Question.prototype, "testId", void 0);
+], Question.prototype, "assignementId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
@@ -35,8 +36,12 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Question.prototype, "type", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Question.prototype, "score", void 0);
 exports.Question = Question = __decorate([
     (0, mongoose_1.Schema)()
 ], Question);
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(Question);
+exports.QuestionSchema = mongoose_1.SchemaFactory.createForClass(Question);
 //# sourceMappingURL=Question.Schema.js.map
