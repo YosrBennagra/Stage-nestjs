@@ -51,11 +51,11 @@ import mongoose, { Document } from 'mongoose';
 export declare class Answer extends Document {
     questionId: string;
     studentId: string;
-    content: string;
+    content?: string[];
     isCorrect: boolean;
-    score: boolean;
+    score: number;
 }
-export declare const UserSchema: mongoose.Schema<Answer, mongoose.Model<Answer, any, any, any, mongoose.Document<unknown, any, Answer> & Answer & {
+export declare const AnswerSchema: mongoose.Schema<Answer, mongoose.Model<Answer, any, any, any, mongoose.Document<unknown, any, Answer> & Answer & {
     _id: mongoose.Types.ObjectId;
 }, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Answer, mongoose.Document<unknown, {}, mongoose.FlatRecord<Answer>> & mongoose.FlatRecord<Answer> & {
     _id: mongoose.Types.ObjectId;

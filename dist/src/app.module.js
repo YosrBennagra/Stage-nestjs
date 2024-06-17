@@ -22,6 +22,8 @@ const twoFactorAuthentication_module_1 = require("./uses-case/Auth/TwoFactorAuth
 const openai_module_1 = require("./uses-case/chatgpt/openai.module");
 const assignment_module_1 = require("./uses-case/Assignment/assignment.module");
 const question_module_1 = require("./uses-case/Question/question.module");
+const answer_module_1 = require("./uses-case/Answer/answer.module");
+const result_module_1 = require("./uses-case/Result/result.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -36,6 +38,8 @@ exports.AppModule = AppModule = __decorate([
             shared_service_module_1.SharedServiceModule,
             auth_module_1.AuthModule,
             question_module_1.QuestionModule,
+            result_module_1.ResultModule,
+            answer_module_1.AnswerModule,
             assignment_module_1.AssignmentModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,

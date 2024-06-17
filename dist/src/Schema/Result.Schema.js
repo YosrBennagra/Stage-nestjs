@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserSchema = exports.Result = void 0;
+exports.ResultSchema = exports.Result = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Result = class Result extends mongoose_2.Document {
@@ -18,7 +18,7 @@ exports.Result = Result;
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Assignment' }),
     __metadata("design:type", String)
-], Result.prototype, "testId", void 0);
+], Result.prototype, "assignmentId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", String)
@@ -30,5 +30,5 @@ __decorate([
 exports.Result = Result = __decorate([
     (0, mongoose_1.Schema)()
 ], Result);
-exports.UserSchema = mongoose_1.SchemaFactory.createForClass(Result);
+exports.ResultSchema = mongoose_1.SchemaFactory.createForClass(Result);
 //# sourceMappingURL=Result.Schema.js.map

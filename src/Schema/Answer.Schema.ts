@@ -14,14 +14,14 @@ export class Answer extends Document {
   studentId: string;
 
   @Prop({ required: true })
-  content: string;
+  content?: string[];
 
   @Prop({ required: true })
   isCorrect: boolean;
 
   @Prop({ required: true })
-  score: boolean;
+  score: number;
   
 }
 
-export const UserSchema = SchemaFactory.createForClass(Answer);
+export const AnswerSchema = SchemaFactory.createForClass(Answer);

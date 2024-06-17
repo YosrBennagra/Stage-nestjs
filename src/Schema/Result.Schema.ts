@@ -5,7 +5,7 @@ import mongoose, { Document } from 'mongoose';
 export class Result extends Document {
   
   @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
-  testId: string;
+  assignmentId: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User'  })
   studentId: string;
@@ -14,4 +14,4 @@ export class Result extends Document {
   score: number;
 }
 
-export const UserSchema = SchemaFactory.createForClass(Result);
+export const ResultSchema = SchemaFactory.createForClass(Result);

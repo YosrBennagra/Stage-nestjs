@@ -47,14 +47,14 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import mongoose, { Document } from 'mongoose';
-export declare class Result extends Document {
-    assignmentId: string;
-    studentId: string;
-    score: number;
+import { Model } from 'mongoose';
+import { Answer } from 'src/Schema/Answer.Schema';
+export declare class AnswerService {
+    private answerModel;
+    constructor(answerModel: Model<Answer>);
+    create(createAnswerDto: any): Promise<Answer>;
+    findAll(): Promise<Answer[]>;
+    findOne(id: string): Promise<Answer>;
+    update(id: string, updateAnswerDto: any): Promise<Answer>;
+    remove(id: string): Promise<Answer>;
 }
-export declare const ResultSchema: mongoose.Schema<Result, mongoose.Model<Result, any, any, any, mongoose.Document<unknown, any, Result> & Result & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Result, mongoose.Document<unknown, {}, mongoose.FlatRecord<Result>> & mongoose.FlatRecord<Result> & {
-    _id: mongoose.Types.ObjectId;
-}>;

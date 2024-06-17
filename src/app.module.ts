@@ -16,6 +16,8 @@ import { OpenaiModule } from './uses-case/chatgpt/openai.module';
 import { AssignmentModule } from './uses-case/Assignment/assignment.module';
 import { Question } from './Schema/Question.Schema';
 import { QuestionModule } from './uses-case/Question/question.module';
+import { AnswerModule } from './uses-case/Answer/answer.module';
+import { ResultModule } from './uses-case/Result/result.module';
 
 
 
@@ -31,6 +33,8 @@ import { QuestionModule } from './uses-case/Question/question.module';
     SharedServiceModule,
     AuthModule,
     QuestionModule,
+    ResultModule,
+    AnswerModule,
     AssignmentModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
