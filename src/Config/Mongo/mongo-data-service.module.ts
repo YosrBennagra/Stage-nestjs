@@ -7,9 +7,9 @@ import { DATA_BASE_CONFIGURATION } from '.';
 
 @Module({
 
-imports:[MongooseModule.forRoot(DATA_BASE_CONFIGURATION.mongoConnectionString)],
-  providers:[],
-exports:[]
+  imports: [MongooseModule.forRoot(DATA_BASE_CONFIGURATION.mongoConnectionString)],
+  providers: [],
+  exports: []
 })
 export class MongoDataServiceModule {
 }

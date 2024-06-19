@@ -11,19 +11,19 @@ export class Question extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
   assignementId: string;
 
-  @Prop({ required: true })
-  content: string;
+  @Prop({ required: false })
+  content?: string;
 
   @Prop([String])
   options?: string[];
 
-  @Prop({ required: true })
-  correctAnswer?: string;
+  @Prop({ required: false })
+  correctAnswer?: string[];
 
   @Prop({ required: true })
   type: TypeQuestion;
 
-  @Prop({ required: true })
+  @Prop({ required: false })
   score?: number;
 
 }

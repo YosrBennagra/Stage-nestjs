@@ -1,5 +1,5 @@
 export enum TypeQuestion {
-    QCM = 'qcm',
-    QCU = 'qcu',
-    TEXT = 'text',
+    QCM = 'QCM',
+    QCU = 'QCU',
+    TEXT = 'TEXT',
 }

@@ -51,9 +51,9 @@ import mongoose, { Document } from 'mongoose';
 import { TypeQuestion } from './Enum/TypeQuestion';
 export declare class Question extends Document {
     assignementId: string;
-    content: string;
+    content?: string;
     options?: string[];
-    correctAnswer?: string;
+    correctAnswer?: string[];
     type: TypeQuestion;
     score?: number;
 }

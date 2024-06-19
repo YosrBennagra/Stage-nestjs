@@ -21,7 +21,7 @@ __decorate([
     __metadata("design:type", String)
 ], Question.prototype, "assignementId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Question.prototype, "content", void 0);
 __decorate([
@@ -29,15 +29,15 @@ __decorate([
     __metadata("design:type", Array)
 ], Question.prototype, "options", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Array)
 ], Question.prototype, "correctAnswer", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Question.prototype, "type", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Number)
 ], Question.prototype, "score", void 0);
 exports.Question = Question = __decorate([
