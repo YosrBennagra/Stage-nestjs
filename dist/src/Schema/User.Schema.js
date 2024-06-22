@@ -13,6 +13,7 @@ exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const Role_1 = require("./Enum/Role");
+const TypeAccount_1 = require("./Enum/TypeAccount");
 let User = class User extends mongoose_2.Document {
 };
 exports.User = User;
@@ -40,6 +41,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], User.prototype, "Role", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], User.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Boolean)

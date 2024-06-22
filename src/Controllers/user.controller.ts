@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Query } from "@nestjs/common";
 import { User } from "../Schema/User.Schema";
 import { UserRepository, UserService } from "../uses-case/User";
 import { CreatUserDto } from "../uses-case/User/DTO/CreatUser.dto";
@@ -34,12 +34,6 @@ export class UsersController {
     return deleteuser;
   }
 
-  @Public()
-  @Get('all')
-  GetAllUser() {
-    return this.usersService.findAllUser();
-  }
-
 
   @Public()
   @Get(':id')
@@ -48,9 +42,24 @@ export class UsersController {
     if (!isValid) throw new HttpException('user not found', 404);
     const findUser = await this.usersService.findOneUser(id);
     if (!findUser) {
-      throw new HttpException('user not foundt', 404);
+      throw new HttpException('user not found', 404);
     }
     return findUser;
+  }
+
+  @Public()
+  @Get('role/:role')
+  async GetUserByRole(
+    @Param('role') role: string,
+    @Query('search') search: string,
+    @Query('limit') limit: number = 10,
+    @Query('offset') offset: number = 0
+  ) {
+    const { users, count } = await this.usersService.findUserByRole(role, search, limit, offset);
+    if (!users || users.length === 0) {
+      throw new NotFoundException('Users not found');
+    }
+    return { users, count };
   }
 
   @Public()

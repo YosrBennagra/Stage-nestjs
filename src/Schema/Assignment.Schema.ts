@@ -1,5 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { TypeStatus } from './Enum/TypeStatus';
 
 
 
@@ -18,7 +19,13 @@ export class Assignment extends Document {
   createdBy?: string;
 
   @Prop([{  type: mongoose.Schema.Types.ObjectId, ref: 'User'  }])
-  assignedTo?: string[];
+  assignedToUsers?: string[];
+
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }])
+  assignedToGroups?: mongoose.Schema.Types.ObjectId[];
+
+  @Prop({ required: false })
+  status: TypeStatus;
 
   @Prop({ required: false })
   createAtdate: Date;

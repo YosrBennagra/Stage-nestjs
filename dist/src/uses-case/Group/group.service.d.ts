@@ -47,26 +47,15 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Document } from 'mongoose';
-import { Role } from "./Enum/Role";
-import { TypeAccount } from './Enum/TypeAccount';
-export declare class User extends Document {
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    Role: Role;
-    status: TypeAccount;
-    isEmailConfirmed: boolean;
-    twoFactorAuthenticationSecret?: string;
-    isTwoFactorAuthenticationEnabled: boolean;
-    currentHashedRefreshToken?: string;
-    passResetToken: string;
-    profilePicture: string;
+import { Model } from 'mongoose';
+import { Group } from 'src/Schema/Group.Schema';
+export declare class GroupService {
+    private groupModel;
+    constructor(groupModel: Model<Group>);
+    create(createGroupDto: any): Promise<Group>;
+    findAll(): Promise<Group[]>;
+    findOne(id: string): Promise<Group>;
+    update(id: string, updateGroupDto: any): Promise<Group>;
+    delete(id: string): Promise<Group>;
+    addUser(groupId: string, userId: string): Promise<Group>;
 }
-export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, Document<unknown, any, User> & User & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, User, Document<unknown, {}, import("mongoose").FlatRecord<User>> & import("mongoose").FlatRecord<User> & {
-    _id: import("mongoose").Types.ObjectId;
-}>;

@@ -17,13 +17,14 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const Assignment_Schema_1 = require("../../Schema/Assignment.Schema");
+const TypeStatus_1 = require("../../Schema/Enum/TypeStatus");
 let AssignmentService = class AssignmentService {
     constructor(assignmentModel) {
         this.assignmentModel = assignmentModel;
     }
     async create(createAssignmentDto) {
         const createAtdate = new Date();
-        const createdAssignment = new this.assignmentModel({ ...createAssignmentDto, createAtdate });
+        const createdAssignment = new this.assignmentModel({ ...createAssignmentDto, createAtdate, status: TypeStatus_1.TypeStatus.PENDING });
         return createdAssignment.save();
     }
     async findAll() {
@@ -55,10 +56,10 @@ let AssignmentService = class AssignmentService {
         if (!assignment) {
             throw new common_1.NotFoundException(`Assignment #${id} not found`);
         }
-        if (assignment.assignedTo.includes(userId)) {
+        if (assignment.assignedToUsers.includes(userId)) {
             return assignment;
         }
-        assignment.assignedTo.push(userId);
+        assignment.assignedToUsers.push(userId);
         return assignment.save();
     }
 };

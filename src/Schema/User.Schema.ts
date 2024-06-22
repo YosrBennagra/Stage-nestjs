@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { Role } from "./Enum/Role";
+import { TypeAccount } from './Enum/TypeAccount';
 
 
 
@@ -25,6 +26,9 @@ export class User extends Document {
 
   @Prop({ required: false })
   Role: Role;
+
+  @Prop({ required: false })
+  status: TypeAccount;
 
   @Prop({ required: false })
   isEmailConfirmed: boolean;

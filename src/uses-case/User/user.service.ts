@@ -80,9 +80,6 @@ export class UserService {
 
   }
 
-  findAllUser() {
-    return this.userRe.findAll();
-  }
 
   findOneUser(id: string) {
     return this.userRe.findById(id);
@@ -90,6 +87,14 @@ export class UserService {
 
   findUserByEmail(email: string) {
     return this.userRe.findByEmail(email);
+  }
+
+  async findUserByRole(role: string, search: string, limit: number, offset: number): Promise<{ users: User[], count: number }> {
+    const { users, count } = await this.userRe.findByRole(role, search, limit, offset);
+    if (!users || users.length === 0) {
+      throw new NotFoundException('Users not found');
+    }
+    return { users, count };
   }
 
 

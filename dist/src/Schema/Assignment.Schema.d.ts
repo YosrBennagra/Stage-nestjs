@@ -48,11 +48,14 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import mongoose, { Document } from 'mongoose';
+import { TypeStatus } from './Enum/TypeStatus';
 export declare class Assignment extends Document {
     title?: string;
     description?: string;
     createdBy?: string;
-    assignedTo?: string[];
+    assignedToUsers?: string[];
+    assignedToGroups?: mongoose.Schema.Types.ObjectId[];
+    status: TypeStatus;
     createAtdate: Date;
     openAt: Date;
     closedAt: Date;

@@ -18,6 +18,7 @@ import { Question } from './Schema/Question.Schema';
 import { QuestionModule } from './uses-case/Question/question.module';
 import { AnswerModule } from './uses-case/Answer/answer.module';
 import { ResultModule } from './uses-case/Result/result.module';
+import { GroupModule } from './uses-case/Group/group.module';
 
 
 
@@ -36,6 +37,7 @@ import { ResultModule } from './uses-case/Result/result.module';
     ResultModule,
     AnswerModule,
     AssignmentModule,
+    GroupModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     ConfigModule.forRoot({

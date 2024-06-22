@@ -59,8 +59,11 @@ export declare class UsersController {
         _id: mongoose.Types.ObjectId;
     }>;
     DeleteUser(id: string): Promise<User>;
-    GetAllUser(): Promise<any[]>;
     GetUserById(id: string): Promise<User>;
+    GetUserByRole(role: string, search: string, limit?: number, offset?: number): Promise<{
+        users: User[];
+        count: number;
+    }>;
     getUserByEmail(email: string): Promise<User>;
     UpdateUser(creatUserDto: CreatUserDto, id: string): Promise<User>;
     resetPassword({ email, resetToken, password }: {

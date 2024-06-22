@@ -47,26 +47,13 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Document } from 'mongoose';
-import { Role } from "./Enum/Role";
-import { TypeAccount } from './Enum/TypeAccount';
-export declare class User extends Document {
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    Role: Role;
-    status: TypeAccount;
-    isEmailConfirmed: boolean;
-    twoFactorAuthenticationSecret?: string;
-    isTwoFactorAuthenticationEnabled: boolean;
-    currentHashedRefreshToken?: string;
-    passResetToken: string;
-    profilePicture: string;
+import mongoose, { Document } from "mongoose";
+export declare class Group extends Document {
+    name: string;
+    users: mongoose.Schema.Types.ObjectId[];
 }
-export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, Document<unknown, any, User> & User & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, User, Document<unknown, {}, import("mongoose").FlatRecord<User>> & import("mongoose").FlatRecord<User> & {
-    _id: import("mongoose").Types.ObjectId;
+export declare const GroupSchema: mongoose.Schema<Group, mongoose.Model<Group, any, any, any, mongoose.Document<unknown, any, Group> & Group & {
+    _id: mongoose.Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Group, mongoose.Document<unknown, {}, mongoose.FlatRecord<Group>> & mongoose.FlatRecord<Group> & {
+    _id: mongoose.Types.ObjectId;
 }>;

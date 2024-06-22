@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssignmentSchema = exports.Assignment = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const TypeStatus_1 = require("./Enum/TypeStatus");
 let Assignment = class Assignment extends mongoose_2.Document {
 };
 exports.Assignment = Assignment;
@@ -30,7 +31,15 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)([{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }]),
     __metadata("design:type", Array)
-], Assignment.prototype, "assignedTo", void 0);
+], Assignment.prototype, "assignedToUsers", void 0);
+__decorate([
+    (0, mongoose_1.Prop)([{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Group' }]),
+    __metadata("design:type", Array)
+], Assignment.prototype, "assignedToGroups", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Assignment.prototype, "status", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Date)

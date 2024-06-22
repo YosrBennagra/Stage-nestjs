@@ -63,9 +63,12 @@ export declare class UserService {
     }>;
     loginUser(loginDto: LoginDto): Promise<User>;
     deleteUser(id: string): Promise<User>;
-    findAllUser(): Promise<any[]>;
     findOneUser(id: string): Promise<User>;
     findUserByEmail(email: string): Promise<User>;
+    findUserByRole(role: string, search: string, limit: number, offset: number): Promise<{
+        users: User[];
+        count: number;
+    }>;
     UpdateUser(id: string, creatuserdto: CreatUserDto): Promise<User>;
     UpdateUser2(id: string, firstname: string, lastname: string): Promise<User>;
     markEmailAsConfirmed(id: string): Promise<User>;

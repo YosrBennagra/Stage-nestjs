@@ -3,6 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Assignment } from 'src/Schema/Assignment.Schema';
+import { TypeStatus } from 'src/Schema/Enum/TypeStatus';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class AssignmentService {
 
   async create(createAssignmentDto: any): Promise<Assignment> {
     const createAtdate = new Date();
-    const createdAssignment = new this.assignmentModel({...createAssignmentDto, createAtdate} );
+    const createdAssignment = new this.assignmentModel({...createAssignmentDto, createAtdate, status:TypeStatus.PENDING} );
     return createdAssignment.save();
   }
 
@@ -50,11 +51,11 @@ export class AssignmentService {
     }
     
 
-    if (assignment.assignedTo.includes(userId)) {
+    if (assignment.assignedToUsers.includes(userId)) {
       return assignment;
     }
     
-    assignment.assignedTo.push(userId);
+    assignment.assignedToUsers.push(userId);
     return assignment.save();
   }
 }

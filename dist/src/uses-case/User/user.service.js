@@ -78,14 +78,18 @@ let UserService = class UserService {
     deleteUser(id) {
         return this.userRe.delete(id);
     }
-    findAllUser() {
-        return this.userRe.findAll();
-    }
     findOneUser(id) {
         return this.userRe.findById(id);
     }
     findUserByEmail(email) {
         return this.userRe.findByEmail(email);
+    }
+    async findUserByRole(role, search, limit, offset) {
+        const { users, count } = await this.userRe.findByRole(role, search, limit, offset);
+        if (!users || users.length === 0) {
+            throw new common_1.NotFoundException('Users not found');
+        }
+        return { users, count };
     }
     UpdateUser(id, creatuserdto) {
         return this.userRe.update(id, creatuserdto);

@@ -42,18 +42,22 @@ let UsersController = class UsersController {
             throw new common_1.HttpException('user not found', 404);
         return deleteuser;
     }
-    GetAllUser() {
-        return this.usersService.findAllUser();
-    }
     async GetUserById(id) {
         const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
         if (!isValid)
             throw new common_1.HttpException('user not found', 404);
         const findUser = await this.usersService.findOneUser(id);
         if (!findUser) {
-            throw new common_1.HttpException('user not foundt', 404);
+            throw new common_1.HttpException('user not found', 404);
         }
         return findUser;
+    }
+    async GetUserByRole(role, search, limit = 10, offset = 0) {
+        const { users, count } = await this.usersService.findUserByRole(role, search, limit, offset);
+        if (!users || users.length === 0) {
+            throw new common_1.NotFoundException('Users not found');
+        }
+        return { users, count };
     }
     async getUserByEmail(email) {
         const user = await this.usersService.findUserByEmail(email);
@@ -139,19 +143,23 @@ __decorate([
 ], UsersController.prototype, "DeleteUser", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Get)('all'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "GetAllUser", null);
-__decorate([
-    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "GetUserById", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('role/:role'),
+    __param(0, (0, common_1.Param)('role')),
+    __param(1, (0, common_1.Query)('search')),
+    __param(2, (0, common_1.Query)('limit')),
+    __param(3, (0, common_1.Query)('offset')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Number, Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "GetUserByRole", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)('email/:email'),

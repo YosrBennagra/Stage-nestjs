@@ -33,6 +33,21 @@ let UserRepository = class UserRepository extends base_abstract_repository_1.Bas
     async findUnconfirmedUsers() {
         return await this.find({ where: { isEmailConfirmed: false } });
     }
+    async findAll(params) {
+        return this.userModel.find(params).exec();
+    }
+    async findByRole(role, search, limit, offset) {
+        const query = this.userModel.find({ Role: role });
+        if (search) {
+            query.or([
+                { username: new RegExp(search, 'i') },
+                { email: new RegExp(search, 'i') }
+            ]);
+        }
+        const users = await query.skip(offset).limit(limit).exec();
+        const count = await this.userModel.countDocuments(query.getQuery());
+        return { users, count };
+    }
 };
 exports.UserRepository = UserRepository;
 exports.UserRepository = UserRepository = __decorate([

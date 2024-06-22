@@ -57,4 +57,9 @@ export declare class UserRepository extends BaseAbstractRepository<User> impleme
     findByEmail(email: string): Promise<User>;
     findUserWithNumber(usernameWithNumber: string): Promise<boolean>;
     findUnconfirmedUsers(): Promise<User[]>;
+    findAll(params?: object): Promise<User[]>;
+    findByRole(role: string, search: string, limit: number, offset: number): Promise<{
+        users: User[];
+        count: number;
+    }>;
 }
