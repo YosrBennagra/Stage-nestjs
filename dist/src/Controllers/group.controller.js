@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GroupController = void 0;
 const common_1 = require("@nestjs/common");
+const public_decorator_1 = require("../Custom Decorators/public.decorator");
 const group_service_1 = require("../uses-case/Group/group.service");
 let GroupController = class GroupController {
     constructor(groupService) {
@@ -40,6 +41,7 @@ let GroupController = class GroupController {
 };
 exports.GroupController = GroupController;
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -47,12 +49,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "create", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "findAll", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -60,6 +64,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "findOne", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -68,6 +73,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "update", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -75,6 +81,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "delete", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Put)(':groupId/addUser/:userId'),
     __param(0, (0, common_1.Param)('groupId')),
     __param(1, (0, common_1.Param)('userId')),
