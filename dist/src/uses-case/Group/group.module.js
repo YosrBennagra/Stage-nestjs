@@ -12,6 +12,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const group_service_1 = require("./group.service");
 const group_controller_1 = require("../../Controllers/group.controller");
 const Group_Schema_1 = require("../../Schema/Group.Schema");
+const User_Schema_1 = require("../../Schema/User.Schema");
 let GroupModule = class GroupModule {
 };
 exports.GroupModule = GroupModule;
@@ -19,6 +20,7 @@ exports.GroupModule = GroupModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: Group_Schema_1.Group.name, schema: Group_Schema_1.GroupSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: User_Schema_1.User.name, schema: User_Schema_1.UserSchema }]),
         ],
         providers: [group_service_1.GroupService],
         controllers: [group_controller_1.GroupController],

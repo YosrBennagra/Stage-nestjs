@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const Group_Schema_1 = require("../../Schema/Group.Schema");
+const User_Schema_1 = require("../../Schema/User.Schema");
 let GroupService = class GroupService {
-    constructor(groupModel) {
+    constructor(groupModel, userModel) {
         this.groupModel = groupModel;
+        this.userModel = userModel;
     }
     async create(createGroupDto) {
         const createdGroup = new this.groupModel(createGroupDto);
@@ -37,7 +39,9 @@ let GroupService = class GroupService {
     async delete(id) {
         return this.groupModel.findByIdAndDelete(id).exec();
     }
-    async addUser(groupId, userId) {
+    async addUser(groupId, email) {
+        const user = await this.userModel.findOne({ email }).exec();
+        const userId = user._id;
         return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: userId } }, { new: true }).exec();
     }
 };
@@ -45,6 +49,7 @@ exports.GroupService = GroupService;
 exports.GroupService = GroupService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(Group_Schema_1.Group.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(User_Schema_1.User.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
 ], GroupService);
 //# sourceMappingURL=group.service.js.map

@@ -35,8 +35,8 @@ let GroupController = class GroupController {
     async delete(id) {
         return this.groupService.delete(id);
     }
-    async addUser(groupId, userId) {
-        return this.groupService.addUser(groupId, userId);
+    async addUser(groupId, userEmail) {
+        return this.groupService.addUser(groupId, userEmail);
     }
 };
 exports.GroupController = GroupController;
@@ -82,9 +82,9 @@ __decorate([
 ], GroupController.prototype, "delete", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Put)(':groupId/addUser/:userId'),
+    (0, common_1.Put)(':groupId/addUser/:userEmail'),
     __param(0, (0, common_1.Param)('groupId')),
-    __param(1, (0, common_1.Param)('userId')),
+    __param(1, (0, common_1.Param)('userEmail')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)

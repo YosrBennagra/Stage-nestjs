@@ -49,13 +49,15 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Group } from 'src/Schema/Group.Schema';
+import { User } from 'src/Schema/User.Schema';
 export declare class GroupService {
     private groupModel;
-    constructor(groupModel: Model<Group>);
+    private userModel;
+    constructor(groupModel: Model<Group>, userModel: Model<User>);
     create(createGroupDto: any): Promise<Group>;
     findAll(): Promise<Group[]>;
     findOne(id: string): Promise<Group>;
     update(id: string, updateGroupDto: any): Promise<Group>;
     delete(id: string): Promise<Group>;
-    addUser(groupId: string, userId: string): Promise<Group>;
+    addUser(groupId: string, email: string): Promise<Group>;
 }
