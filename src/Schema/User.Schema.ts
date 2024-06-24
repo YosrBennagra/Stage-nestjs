@@ -3,8 +3,6 @@ import { Document } from 'mongoose';
 import { Role } from "./Enum/Role";
 import { TypeAccount } from './Enum/TypeAccount';
 
-
-
 @Schema()
 export class User extends Document {
 

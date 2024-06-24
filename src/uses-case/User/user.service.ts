@@ -74,6 +74,10 @@ export class UserService {
     return user;
   }
 
+  async findAll(): Promise<User[]> {
+    return this.userModel.find();
+  }
+
 
   deleteUser(id: string) {
     return this.userRe.delete(id);

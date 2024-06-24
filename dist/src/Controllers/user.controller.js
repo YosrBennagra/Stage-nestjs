@@ -33,6 +33,9 @@ let UsersController = class UsersController {
             throw new common_1.HttpException(error.message, common_1.HttpStatus.CONFLICT);
         }
     }
+    async findAll() {
+        return this.usersService.findAll();
+    }
     async DeleteUser(id) {
         const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
         if (!isValid)
@@ -133,6 +136,13 @@ __decorate([
     __metadata("design:paramtypes", [CreatUser_dto_1.CreatUserDto]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "createUser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findAll", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Delete)('deleteuser/:id'),

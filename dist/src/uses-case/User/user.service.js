@@ -75,6 +75,9 @@ let UserService = class UserService {
         }
         return user;
     }
+    async findAll() {
+        return this.userModel.find();
+    }
     deleteUser(id) {
         return this.userRe.delete(id);
     }

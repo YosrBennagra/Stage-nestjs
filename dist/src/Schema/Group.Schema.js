@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GroupSchema = exports.Group = void 0;
+exports.GroupModel = exports.GroupSchema = exports.Group = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let Group = class Group extends mongoose_2.Document {
@@ -20,11 +20,16 @@ __decorate([
     __metadata("design:type", String)
 ], Group.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Group.prototype, "color", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
 ], Group.prototype, "users", void 0);
 exports.Group = Group = __decorate([
     (0, mongoose_1.Schema)()
 ], Group);
 exports.GroupSchema = mongoose_1.SchemaFactory.createForClass(Group);
+exports.GroupModel = mongoose_2.default.model('Group', exports.GroupSchema);
 //# sourceMappingURL=Group.Schema.js.map

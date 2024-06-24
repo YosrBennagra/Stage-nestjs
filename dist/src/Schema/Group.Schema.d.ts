@@ -50,6 +50,7 @@
 import mongoose, { Document } from "mongoose";
 export declare class Group extends Document {
     name: string;
+    color: string;
     users: mongoose.Schema.Types.ObjectId[];
 }
 export declare const GroupSchema: mongoose.Schema<Group, mongoose.Model<Group, any, any, any, mongoose.Document<unknown, any, Group> & Group & {
@@ -57,3 +58,8 @@ export declare const GroupSchema: mongoose.Schema<Group, mongoose.Model<Group, a
 }, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Group, mongoose.Document<unknown, {}, mongoose.FlatRecord<Group>> & mongoose.FlatRecord<Group> & {
     _id: mongoose.Types.ObjectId;
 }>;
+export declare const GroupModel: mongoose.Model<Group, {}, {}, {}, mongoose.Schema<Group, mongoose.Model<Group, any, any, any, mongoose.Document<unknown, any, Group> & Group & {
+    _id: mongoose.Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Group, mongoose.Document<unknown, {}, mongoose.FlatRecord<Group>> & mongoose.FlatRecord<Group> & {
+    _id: mongoose.Types.ObjectId;
+}>, any>;

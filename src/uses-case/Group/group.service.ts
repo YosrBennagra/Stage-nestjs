@@ -7,19 +7,24 @@ import { User } from 'src/Schema/User.Schema';
 
 @Injectable()
 export class GroupService {
-  constructor(@InjectModel(Group.name) private groupModel: Model<Group>, @InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(Group.name) private groupModel: Model<Group>, @InjectModel(User.name) private userModel: Model<User>) { }
 
   async create(createGroupDto: any): Promise<Group> {
-    const createdGroup = new this.groupModel(createGroupDto);
+    const createdGroup = new this.groupModel({
+      ...createGroupDto,
+      color: getRandomHexColor(), 
+    });
+
     return createdGroup.save();
   }
 
+
   async findAll(): Promise<Group[]> {
-    return this.groupModel.find().exec();
+    return this.groupModel.find().populate('users');
   }
 
   async findOne(id: string): Promise<Group> {
-    return this.groupModel.findById(id).exec();
+    return (await this.groupModel.findById(id)).populate('users');
   }
 
   async update(id: string, updateGroupDto: any): Promise<Group> {
@@ -35,4 +40,12 @@ export class GroupService {
     const userId = user._id
     return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: userId } }, { new: true }).exec();
   }
+}
+function getRandomHexColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }

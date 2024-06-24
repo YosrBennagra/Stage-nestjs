@@ -24,14 +24,17 @@ let GroupService = class GroupService {
         this.userModel = userModel;
     }
     async create(createGroupDto) {
-        const createdGroup = new this.groupModel(createGroupDto);
+        const createdGroup = new this.groupModel({
+            ...createGroupDto,
+            color: getRandomHexColor(),
+        });
         return createdGroup.save();
     }
     async findAll() {
-        return this.groupModel.find().exec();
+        return this.groupModel.find().populate('users');
     }
     async findOne(id) {
-        return this.groupModel.findById(id).exec();
+        return (await this.groupModel.findById(id)).populate('users');
     }
     async update(id, updateGroupDto) {
         return this.groupModel.findByIdAndUpdate(id, updateGroupDto, { new: true }).exec();
@@ -52,4 +55,12 @@ exports.GroupService = GroupService = __decorate([
     __param(1, (0, mongoose_1.InjectModel)(User_Schema_1.User.name)),
     __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
 ], GroupService);
+function getRandomHexColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 //# sourceMappingURL=group.service.js.map

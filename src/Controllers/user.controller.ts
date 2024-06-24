@@ -25,6 +25,12 @@ export class UsersController {
   }
 
   @Public()
+  @Get()
+  async findAll(): Promise<User[]> {
+    return this.usersService.findAll();
+  }
+
+  @Public()
   @Delete('deleteuser/:id')
   async DeleteUser(@Param('id') id: string) {
     const isValid = mongoose.Types.ObjectId.isValid(id);
@@ -121,7 +127,7 @@ export class UsersController {
   }
 
   @Public()
-  @Post('update-profile-picture') 
+  @Post('update-profile-picture')
   async updateProfilePicture(@Body() requestBody: { userId: string, profilePictureId: string }) {
     const { userId, profilePictureId } = requestBody;
     try {
@@ -133,11 +139,11 @@ export class UsersController {
   }
 
   @Public()
-  @Post('update-user') 
-  async updateDataUser(@Body() requestBody: { userId: string, un: string, fn: string, ln: string}) {
-    const { userId, un ,fn ,ln } = requestBody;
+  @Post('update-user')
+  async updateDataUser(@Body() requestBody: { userId: string, un: string, fn: string, ln: string }) {
+    const { userId, un, fn, ln } = requestBody;
     try {
-      const updatedUser = await this.usersService.updateUserData(userId, un ,fn ,ln);
+      const updatedUser = await this.usersService.updateUserData(userId, un, fn, ln);
       return { success: true, user: updatedUser };
     } catch (error) {
       return { success: false, error: error.message };
@@ -145,5 +151,5 @@ export class UsersController {
   }
 
 
-  
+
 }

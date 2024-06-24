@@ -58,6 +58,7 @@ export declare class UsersController {
     createUser(createUserDto: CreatUserDto): Promise<mongoose.Document<unknown, {}, User> & User & {
         _id: mongoose.Types.ObjectId;
     }>;
+    findAll(): Promise<User[]>;
     DeleteUser(id: string): Promise<User>;
     GetUserById(id: string): Promise<User>;
     GetUserByRole(role: string, search: string, limit?: number, offset?: number): Promise<{

@@ -62,6 +62,7 @@ export declare class UserService {
         _id: import("mongoose").Types.ObjectId;
     }>;
     loginUser(loginDto: LoginDto): Promise<User>;
+    findAll(): Promise<User[]>;
     deleteUser(id: string): Promise<User>;
     findOneUser(id: string): Promise<User>;
     findUserByEmail(email: string): Promise<User>;
