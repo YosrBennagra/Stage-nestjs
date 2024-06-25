@@ -42,10 +42,11 @@ let GroupService = class GroupService {
     async delete(id) {
         return this.groupModel.findByIdAndDelete(id).exec();
     }
-    async addUser(groupId, email) {
-        const user = await this.userModel.findOne({ email }).exec();
-        const userId = user._id;
-        return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: userId } }, { new: true }).exec();
+    async addUser(groupId, id) {
+        return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: id } }, { new: true }).exec();
+    }
+    async removeUser(groupId, id) {
+        return this.groupModel.findByIdAndUpdate(groupId, { $pull: { users: id } }, { new: true }).exec();
     }
 };
 exports.GroupService = GroupService;

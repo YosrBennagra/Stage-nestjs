@@ -35,10 +35,13 @@ export class GroupService {
     return this.groupModel.findByIdAndDelete(id).exec();
   }
 
-  async addUser(groupId: string, email: string): Promise<Group> {
-    const user = await this.userModel.findOne({ email }).exec();
-    const userId = user._id
-    return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: userId } }, { new: true }).exec();
+  async addUser(groupId: string, id: string): Promise<Group> {
+    return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: id } }, { new: true }).exec();
+  }
+
+  
+  async removeUser(groupId: string, id: string): Promise<Group> {
+    return this.groupModel.findByIdAndUpdate(groupId, { $pull: { users: id } }, { new: true }).exec();
   }
 }
 function getRandomHexColor() {

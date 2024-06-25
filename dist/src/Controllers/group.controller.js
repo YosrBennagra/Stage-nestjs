@@ -35,8 +35,11 @@ let GroupController = class GroupController {
     async delete(id) {
         return this.groupService.delete(id);
     }
-    async addUser(groupId, userEmail) {
-        return this.groupService.addUser(groupId, userEmail);
+    async addUser(groupId, id) {
+        return this.groupService.addUser(groupId, id);
+    }
+    async removeUser(groupId, id) {
+        return this.groupService.removeUser(groupId, id);
     }
 };
 exports.GroupController = GroupController;
@@ -82,13 +85,22 @@ __decorate([
 ], GroupController.prototype, "delete", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Put)(':groupId/addUser/:userEmail'),
+    (0, common_1.Put)(':groupId/addUser/:id'),
     __param(0, (0, common_1.Param)('groupId')),
-    __param(1, (0, common_1.Param)('userEmail')),
+    __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "addUser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':groupId/removeUser/:id'),
+    __param(0, (0, common_1.Param)('groupId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], GroupController.prototype, "removeUser", null);
 exports.GroupController = GroupController = __decorate([
     (0, common_1.Controller)('groups'),
     __metadata("design:paramtypes", [group_service_1.GroupService])
