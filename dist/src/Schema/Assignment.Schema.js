@@ -13,6 +13,7 @@ exports.AssignmentSchema = exports.Assignment = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const TypeStatus_1 = require("./Enum/TypeStatus");
+const date_fns_1 = require("date-fns");
 let Assignment = class Assignment extends mongoose_2.Document {
 };
 exports.Assignment = Assignment;
@@ -41,21 +42,37 @@ __decorate([
     __metadata("design:type", String)
 ], Assignment.prototype, "status", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Date)
+    (0, mongoose_1.Prop)({ required: false, set: (val) => (0, date_fns_1.format)(val, 'yyyy-MM-dd HH:mm:ss') }),
+    __metadata("design:type", String)
 ], Assignment.prototype, "createAtdate", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], Assignment.prototype, "openAt", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], Assignment.prototype, "closedAt", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Number)
 ], Assignment.prototype, "duration", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Boolean)
+], Assignment.prototype, "isScheduled", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Boolean)
+], Assignment.prototype, "isVisible", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Boolean)
+], Assignment.prototype, "isInterval", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Assignment.prototype, "dateSchedule", void 0);
 exports.Assignment = Assignment = __decorate([
     (0, mongoose_1.Schema)()
 ], Assignment);

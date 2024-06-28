@@ -1,6 +1,7 @@
 
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { format } from 'date-fns';
 import { Model } from 'mongoose';
 import { Assignment } from 'src/Schema/Assignment.Schema';
 import { TypeStatus } from 'src/Schema/Enum/TypeStatus';
@@ -8,11 +9,18 @@ import { TypeStatus } from 'src/Schema/Enum/TypeStatus';
 
 @Injectable()
 export class AssignmentService {
-  constructor(@InjectModel(Assignment.name) private assignmentModel: Model<Assignment>) {}
+  constructor(@InjectModel(Assignment.name) private assignmentModel: Model<Assignment>) { }
 
   async create(createAssignmentDto: any): Promise<Assignment> {
     const createAtdate = new Date();
-    const createdAssignment = new this.assignmentModel({...createAssignmentDto, createAtdate, status:TypeStatus.PENDING} );
+    const formattedDate = format(createAtdate, 'yyyy-MM-dd HH:mm:ss');
+    const createdAssignment = new this.assignmentModel({
+      ...createAssignmentDto,
+      createAtdate:formattedDate,
+      status: TypeStatus.PENDING,
+      isScheduled:false,
+      isVisible:false,
+    });
     return createdAssignment.save();
   }
 
@@ -49,13 +57,14 @@ export class AssignmentService {
     if (!assignment) {
       throw new NotFoundException(`Assignment #${id} not found`);
     }
-    
+
 
     if (assignment.assignedToUsers.includes(userId)) {
       return assignment;
     }
-    
+
     assignment.assignedToUsers.push(userId);
     return assignment.save();
   }
+
 }

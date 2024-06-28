@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssignmentService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const date_fns_1 = require("date-fns");
 const mongoose_2 = require("mongoose");
 const Assignment_Schema_1 = require("../../Schema/Assignment.Schema");
 const TypeStatus_1 = require("../../Schema/Enum/TypeStatus");
@@ -24,7 +25,14 @@ let AssignmentService = class AssignmentService {
     }
     async create(createAssignmentDto) {
         const createAtdate = new Date();
-        const createdAssignment = new this.assignmentModel({ ...createAssignmentDto, createAtdate, status: TypeStatus_1.TypeStatus.PENDING });
+        const formattedDate = (0, date_fns_1.format)(createAtdate, 'yyyy-MM-dd HH:mm:ss');
+        const createdAssignment = new this.assignmentModel({
+            ...createAssignmentDto,
+            createAtdate: formattedDate,
+            status: TypeStatus_1.TypeStatus.PENDING,
+            isScheduled: false,
+            isVisible: false,
+        });
         return createdAssignment.save();
     }
     async findAll() {
