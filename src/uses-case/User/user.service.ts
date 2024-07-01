@@ -135,9 +135,7 @@ export class UserService {
   async deleteUserProfile(userId: string) {
     try {
       const deletedUser = await this.userModel.deleteOne({ userId: userId });
-
         console.log('Deleted one user:', deletedUser);
-      
     } catch (error) {
       console.error('Error deleting user:', error);
     }
