@@ -69,6 +69,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Institution' }),
+    __metadata("design:type", String)
+], User.prototype, "institution", void 0);
 exports.User = User = __decorate([
     (0, mongoose_1.Schema)()
 ], User);

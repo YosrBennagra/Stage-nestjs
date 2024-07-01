@@ -47,16 +47,66 @@ let AssignmentController = class AssignmentController {
         }
         return assignment;
     }
-    async addAssignedTo(id, userId) {
+    async addUser(assignmentId, id) {
         try {
-            const assignment = await this.assignmentService.addAssignedTo(id, userId);
-            return { message: 'User added to assignment', assignment };
+            return await this.assignmentService.addUser(assignmentId, id);
         }
         catch (error) {
             if (error instanceof common_1.NotFoundException) {
                 throw new common_1.NotFoundException(error.message);
             }
             throw error;
+        }
+    }
+    async removeUser(assignmentId, id) {
+        try {
+            return await this.assignmentService.removeUser(assignmentId, id);
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            throw error;
+        }
+    }
+    async addGroup(assignmentId, id) {
+        try {
+            return await this.assignmentService.addGroup(assignmentId, id);
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            throw error;
+        }
+    }
+    async removeGroup(assignmentId, id) {
+        try {
+            return await this.assignmentService.removeGroup(assignmentId, id);
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw new common_1.NotFoundException(error.message);
+            }
+            throw error;
+        }
+    }
+    async updateAssignedUsers(assignmentId, userIdsToAdd) {
+        try {
+            const updatedAssignment = await this.assignmentService.updateAssignedUsers(assignmentId, userIdsToAdd);
+            return updatedAssignment;
+        }
+        catch (error) {
+            throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
+        }
+    }
+    async updateAssignedGroups(assignmentId, groupIdsToAdd) {
+        try {
+            const updatedAssignment = await this.assignmentService.updateAssignedGroups(assignmentId, groupIdsToAdd);
+            return updatedAssignment;
+        }
+        catch (error) {
+            throw new Error(`Failed to update assigned groups for assignment ${assignmentId}: ${error.message}`);
         }
     }
 };
@@ -103,13 +153,58 @@ __decorate([
 ], AssignmentController.prototype, "remove", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Post)(':id/assignedto/:userId'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Param)('userId')),
+    (0, common_1.Put)(':assignmentId/addUser/:id'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], AssignmentController.prototype, "addAssignedTo", null);
+], AssignmentController.prototype, "addUser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':assignmentId/removeUser/:id'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "removeUser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':assignmentId/addGroup/:id'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "addGroup", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':assignmentId/removeGroup/:id'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "removeGroup", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)('/:assignmentId/updateAssignedUsers'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "updateAssignedUsers", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)('/:assignmentId/updateAssignedGroups'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "updateAssignedGroups", null);
 exports.AssignmentController = AssignmentController = __decorate([
     (0, common_1.Controller)('assignments'),
     __metadata("design:paramtypes", [assignment_service_1.AssignmentService])

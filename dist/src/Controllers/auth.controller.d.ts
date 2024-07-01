@@ -69,6 +69,7 @@ export declare class AuthController {
         isEmailConfirmed: Boolean;
         profilePicture: string;
         role: string;
+        institution?: string;
     }>;
     register(registrationData: CreatUserDto): Promise<import("mongoose").Document<unknown, {}, import("../Schema/User.Schema").User> & import("../Schema/User.Schema").User & {
         _id: import("mongoose").Types.ObjectId;

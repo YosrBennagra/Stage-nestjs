@@ -17,6 +17,7 @@ export declare class AuthService {
         isEmailConfirmed: Boolean;
         profilePicture: string;
         role: string;
+        institution?: string;
     }>;
     getCookieWithJwtAccessToken(userId: string, isSecondFactorAuthenticated?: boolean): string;
     getCookieWithJwtRefreshToken(userId: string): {

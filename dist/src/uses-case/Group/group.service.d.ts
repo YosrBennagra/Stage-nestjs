@@ -59,5 +59,6 @@ export declare class GroupService {
     findOne(id: string): Promise<Group>;
     update(id: string, updateGroupDto: any): Promise<Group>;
     delete(id: string): Promise<Group>;
-    addUser(groupId: string, email: string): Promise<Group>;
+    addUser(groupId: string, id: string): Promise<Group>;
+    removeUser(groupId: string, id: string): Promise<Group>;
 }

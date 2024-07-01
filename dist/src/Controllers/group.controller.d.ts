@@ -8,5 +8,6 @@ export declare class GroupController {
     findOne(id: string): Promise<Group>;
     update(id: string, updateGroupDto: any): Promise<Group>;
     delete(id: string): Promise<Group>;
-    addUser(groupId: string, userEmail: string): Promise<Group>;
+    addUser(groupId: string, id: string): Promise<Group>;
+    removeUser(groupId: string, id: string): Promise<Group>;
 }

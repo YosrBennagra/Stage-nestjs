@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { TypeStatus } from './Enum/TypeStatus';
+import { format } from 'date-fns';
 
 
 
@@ -22,23 +23,37 @@ export class Assignment extends Document {
   assignedToUsers?: string[];
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }])
-  assignedToGroups?: mongoose.Schema.Types.ObjectId[];
+  assignedToGroups?: string[];
 
   @Prop({ required: false })
   status: TypeStatus;
 
-  @Prop({ required: false })
-  createAtdate: Date;
+  @Prop({ required: false, set: (val: Date) => format(val, 'yyyy-MM-dd HH:mm:ss') })
+  createAtdate: string;
 
   @Prop({ required: false })
-  openAt: Date;
+  openAt: string;
 
   @Prop({ required: false })
-  closedAt: Date;
+  closedAt: string;
 
   @Prop({ required: false })
   duration: number;
 
+  //0 = instant, 1 = scheduled
+  @Prop({ required: false })
+  isScheduled: boolean;
+
+  //0= private, 1 = public  
+  @Prop({ required: false })
+  isVisible: boolean;
+
+  @Prop({ required: false })
+  isInterval: boolean;
+
+  @Prop({ required: false })
+  dateSchedule: string;
 }
+
 
 export const AssignmentSchema  = SchemaFactory.createForClass(Assignment);

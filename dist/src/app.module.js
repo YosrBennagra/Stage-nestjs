@@ -25,6 +25,8 @@ const question_module_1 = require("./uses-case/Question/question.module");
 const answer_module_1 = require("./uses-case/Answer/answer.module");
 const result_module_1 = require("./uses-case/Result/result.module");
 const group_module_1 = require("./uses-case/Group/group.module");
+const institution_module_1 = require("./uses-case/Institution/institution.module");
+const subject_module_1 = require("./uses-case/Subject/subject.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -43,6 +45,8 @@ exports.AppModule = AppModule = __decorate([
             answer_module_1.AnswerModule,
             assignment_module_1.AssignmentModule,
             group_module_1.GroupModule,
+            institution_module_1.InstitutionModule,
+            subject_module_1.SubjectModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,
             config_1.ConfigModule.forRoot({

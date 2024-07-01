@@ -8,5 +8,10 @@ export declare class AssignmentController {
     findOne(id: string): Promise<Assignment>;
     update(id: string, updateAssignmentDto: any): Promise<Assignment>;
     remove(id: string): Promise<Assignment>;
-    addAssignedTo(id: string, userId: string): Promise<any>;
+    addUser(assignmentId: string, id: string): Promise<Assignment>;
+    removeUser(assignmentId: string, id: string): Promise<Assignment>;
+    addGroup(assignmentId: string, id: string): Promise<Assignment>;
+    removeGroup(assignmentId: string, id: string): Promise<Assignment>;
+    updateAssignedUsers(assignmentId: string, userIdsToAdd: string[]): Promise<any>;
+    updateAssignedGroups(assignmentId: string, groupIdsToAdd: string[]): Promise<any>;
 }

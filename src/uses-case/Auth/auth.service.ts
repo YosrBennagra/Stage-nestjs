@@ -26,9 +26,10 @@ export class AuthService {
     isTwoFactorAuthenticationEnabled:Boolean,
     isEmailConfirmed:Boolean,
     profilePicture:string,
-    role:string
+    role:string,
+    institution?:string,
   }> {
-    const user = await this.userService.findUserByEmail(email);
+    const user = (await this.userService.findUserByEmail(email));
     const isMatch = await bcrypt.compare(pass, user?.password);
     if (!isMatch) {
       throw new UnauthorizedException('Invalid password');
@@ -45,8 +46,8 @@ export class AuthService {
       isTwoFactorAuthenticationEnabled : user.isTwoFactorAuthenticationEnabled,
       isEmailConfirmed: user.isEmailConfirmed,
       profilePicture:user.profilePicture,
-      role:user.Role
-
+      role:user.Role,
+      institution:user.institution.toString(),
     };
   }
 

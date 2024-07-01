@@ -38,8 +38,14 @@ export class GroupController {
   }
 
   @Public()
-  @Put(':groupId/addUser/:userEmail')
-  async addUser(@Param('groupId') groupId: string, @Param('userEmail') userEmail: string): Promise<Group> {
-    return this.groupService.addUser(groupId, userEmail);
+  @Put(':groupId/addUser/:id')
+  async addUser(@Param('groupId') groupId: string, @Param('id') id: string): Promise<Group> {
+    return this.groupService.addUser(groupId, id);
+  }
+
+  @Public()
+  @Put(':groupId/removeUser/:id')
+  async removeUser(@Param('groupId') groupId: string, @Param('id') id: string): Promise<Group> {
+    return this.groupService.removeUser(groupId, id);
   }
 }
