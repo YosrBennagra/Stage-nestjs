@@ -16,10 +16,10 @@ export class AssignmentService {
     const formattedDate = format(createAtdate, 'yyyy-MM-dd HH:mm:ss');
     const createdAssignment = new this.assignmentModel({
       ...createAssignmentDto,
-      createAtdate:formattedDate,
+      createAtdate: formattedDate,
       status: TypeStatus.PENDING,
-      isScheduled:false,
-      isVisible:false,
+      isScheduled: false,
+      isVisible: false,
     });
     return createdAssignment.save();
   }
@@ -29,7 +29,7 @@ export class AssignmentService {
   }
 
   async findOne(id: string): Promise<Assignment> {
-    const assignment = await this.assignmentModel.findById(id).exec();
+    const assignment = await this.assignmentModel.findById(id).populate('assignedToUsers').populate('assignedToGroups').exec();
     if (!assignment) {
       throw new NotFoundException(`Assignment #${id} not found`);
     }
@@ -52,19 +52,109 @@ export class AssignmentService {
     return deletedAssignment;
   }
 
-  async addAssignedTo(id: string, userId: string): Promise<Assignment> {
-    const assignment = await this.assignmentModel.findById(id).exec();
+
+
+  async addUser(assignmentId: string, id: string): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
     if (!assignment) {
-      throw new NotFoundException(`Assignment #${id} not found`);
+      throw new NotFoundException(`Assignment #${assignmentId} not found`);
     }
-
-
-    if (assignment.assignedToUsers.includes(userId)) {
+    if (assignment.assignedToUsers.includes(id)) {
       return assignment;
     }
-
-    assignment.assignedToUsers.push(userId);
-    return assignment.save();
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+      assignmentId,
+      { $push: { assignedToUsers: id } },
+      { new: true }
+    ).exec();
+    return updatedAssignment;
   }
+
+
+
+  async removeUser(assignmentId: string, id: string): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
+    if (!assignment) {
+      throw new NotFoundException(`Assignment #${assignmentId} not found`);
+    }
+    if (!assignment.assignedToUsers.includes(id)) {
+      throw new NotFoundException(`User #${id} not assigned to this assignment`);
+    }
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+      assignmentId,
+      { $pull: { assignedToUsers: id } },
+      { new: true }
+    ).exec();
+    if (!updatedAssignment) {
+      throw new NotFoundException(`Assignment #${assignmentId} not found after update`);
+    }
+
+    return updatedAssignment;
+  }
+
+
+  async addGroup(assignmentId: string, id: string): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
+    if (!assignment) {
+      throw new NotFoundException(`Assignment #${assignmentId} not found`);
+    }
+    if (assignment.assignedToGroups.includes(id)) {
+      return assignment;
+    }
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+      assignmentId,
+      { $push: { assignedToGroups: id } },
+      { new: true }
+    ).exec();
+    return updatedAssignment;
+  }
+
+
+  async removeGroup(assignmentId: string, id: string): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
+    if (!assignment) {
+      throw new NotFoundException(`Assignment #${assignmentId} not found`);
+    }
+    if (!assignment.assignedToGroups.includes(id)) {
+      throw new NotFoundException(`Group #${id} not assigned to this assignment`);
+    }
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+      assignmentId,
+      { $pull: { assignedToGroups: id } },
+      { new: true }
+    ).exec();
+    return updatedAssignment;
+  }
+
+  async updateAssignedUsers(assignmentId: string, newAssignedUsers: string[]): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
+    if (!assignment) {
+        throw new NotFoundException(`Assignment #${assignmentId} not found`);
+    }
+
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+        assignmentId,
+        { $set: { assignedToUsers: newAssignedUsers } },
+        { new: true }
+    ).exec();
+
+    return updatedAssignment;
+}
+
+async updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): Promise<Assignment> {
+    const assignment = await this.assignmentModel.findById(assignmentId).exec();
+    if (!assignment) {
+        throw new NotFoundException(`Assignment #${assignmentId} not found`);
+    }
+    
+    const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+        assignmentId,
+        { $set: { assignedToGroups: newAssignedGroups } },
+        { new: true }
+    ).exec();
+
+    return updatedAssignment;
+}
+
 
 }

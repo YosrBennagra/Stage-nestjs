@@ -23,7 +23,7 @@ export class Assignment extends Document {
   assignedToUsers?: string[];
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }])
-  assignedToGroups?: mongoose.Schema.Types.ObjectId[];
+  assignedToGroups?: string[];
 
   @Prop({ required: false })
   status: TypeStatus;

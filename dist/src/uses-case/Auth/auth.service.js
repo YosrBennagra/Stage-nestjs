@@ -22,7 +22,7 @@ let AuthService = class AuthService {
         this.configService = configService;
     }
     async signIn(email, pass) {
-        const user = await this.userService.findUserByEmail(email);
+        const user = (await this.userService.findUserByEmail(email));
         const isMatch = await bcrypt.compare(pass, user?.password);
         if (!isMatch) {
             throw new common_1.UnauthorizedException('Invalid password');
@@ -39,7 +39,8 @@ let AuthService = class AuthService {
             isTwoFactorAuthenticationEnabled: user.isTwoFactorAuthenticationEnabled,
             isEmailConfirmed: user.isEmailConfirmed,
             profilePicture: user.profilePicture,
-            role: user.Role
+            role: user.Role,
+            institution: user.institution.toString(),
         };
     }
     getCookieWithJwtAccessToken(userId, isSecondFactorAuthenticated = false) {

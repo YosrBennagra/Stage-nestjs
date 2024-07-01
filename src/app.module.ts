@@ -19,6 +19,8 @@ import { QuestionModule } from './uses-case/Question/question.module';
 import { AnswerModule } from './uses-case/Answer/answer.module';
 import { ResultModule } from './uses-case/Result/result.module';
 import { GroupModule } from './uses-case/Group/group.module';
+import { InstitutionModule } from './uses-case/Institution/institution.module';
+import { SubjectModule } from './uses-case/Subject/subject.module';
 
 
 
@@ -38,6 +40,8 @@ import { GroupModule } from './uses-case/Group/group.module';
     AnswerModule,
     AssignmentModule,
     GroupModule,
+    InstitutionModule,
+    SubjectModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     ConfigModule.forRoot({

@@ -57,5 +57,10 @@ export declare class AssignmentService {
     findOne(id: string): Promise<Assignment>;
     update(id: string, updateAssignmentDto: any): Promise<Assignment>;
     remove(id: string): Promise<Assignment>;
-    addAssignedTo(id: string, userId: string): Promise<Assignment>;
+    addUser(assignmentId: string, id: string): Promise<Assignment>;
+    removeUser(assignmentId: string, id: string): Promise<Assignment>;
+    addGroup(assignmentId: string, id: string): Promise<Assignment>;
+    removeGroup(assignmentId: string, id: string): Promise<Assignment>;
+    updateAssignedUsers(assignmentId: string, newAssignedUsers: string[]): Promise<Assignment>;
+    updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): Promise<Assignment>;
 }

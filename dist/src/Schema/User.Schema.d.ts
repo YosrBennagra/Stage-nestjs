@@ -47,7 +47,7 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { Role } from "./Enum/Role";
 import { TypeAccount } from './Enum/TypeAccount';
 export declare class User extends Document {
@@ -64,9 +64,10 @@ export declare class User extends Document {
     currentHashedRefreshToken?: string;
     passResetToken: string;
     profilePicture: string;
+    institution?: string;
 }
-export declare const UserSchema: import("mongoose").Schema<User, import("mongoose").Model<User, any, any, any, Document<unknown, any, User> & User & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, User, Document<unknown, {}, import("mongoose").FlatRecord<User>> & import("mongoose").FlatRecord<User> & {
-    _id: import("mongoose").Types.ObjectId;
+export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, mongoose.Document<unknown, any, User> & User & {
+    _id: mongoose.Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, User, mongoose.Document<unknown, {}, mongoose.FlatRecord<User>> & mongoose.FlatRecord<User> & {
+    _id: mongoose.Types.ObjectId;
 }>;

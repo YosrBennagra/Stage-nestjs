@@ -1,5 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { Role } from "./Enum/Role";
 import { TypeAccount } from './Enum/TypeAccount';
 
@@ -45,6 +45,9 @@ export class User extends Document {
 
   @Prop({ required: false })
   profilePicture: string; 
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Institution' })
+  institution?: string; 
 
 }
 

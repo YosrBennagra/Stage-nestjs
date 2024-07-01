@@ -21,7 +21,6 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/aggregate" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/callback" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/collection" />
@@ -48,33 +47,14 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { AuthService } from 'src/uses-case/Auth/auth.service';
-import { LoginDto } from 'src/uses-case/User/DTO/Login.dto';
-import { CreatUserDto } from 'src/uses-case/User/DTO/CreatUser.dto';
-import { EmailConfirmationService } from 'src/uses-case/Auth/EmailConfirmation/emailConfirmation.service';
-import { UserService } from 'src/uses-case/User';
-export declare class AuthController {
-    private authService;
-    private readonly emailConfirmationService;
-    private readonly userservice;
-    constructor(authService: AuthService, emailConfirmationService: EmailConfirmationService, userservice: UserService);
-    signIn(signInDto: LoginDto): Promise<{
-        access_token: string;
-        user: any;
-        userId: string;
-        useremail: string;
-        username: string;
-        faSecret: string;
-        isTwoFactorAuthenticationEnabled: Boolean;
-        isEmailConfirmed: Boolean;
-        profilePicture: string;
-        role: string;
-        institution?: string;
-    }>;
-    register(registrationData: CreatUserDto): Promise<import("mongoose").Document<unknown, {}, import("../Schema/User.Schema").User> & import("../Schema/User.Schema").User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    forgotPassword(email: string): Promise<{
-        message: string;
-    }>;
+import { Model } from 'mongoose';
+import { Subject } from 'src/Schema/Subject.Schema';
+export declare class SubjectService {
+    private subjectModel;
+    constructor(subjectModel: Model<Subject>);
+    create(createSubjectDto: any): Promise<Subject>;
+    findAll(): Promise<Subject[]>;
+    findOne(id: string): Promise<Subject>;
+    update(id: string, updateSubjectDto: any): Promise<Subject>;
+    delete(id: string): Promise<Subject>;
 }

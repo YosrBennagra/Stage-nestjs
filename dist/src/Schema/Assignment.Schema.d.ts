@@ -54,7 +54,7 @@ export declare class Assignment extends Document {
     description?: string;
     createdBy?: string;
     assignedToUsers?: string[];
-    assignedToGroups?: mongoose.Schema.Types.ObjectId[];
+    assignedToGroups?: string[];
     status: TypeStatus;
     createAtdate: string;
     openAt: string;
