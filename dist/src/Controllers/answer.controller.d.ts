@@ -6,6 +6,6 @@ export declare class AnswerController {
     create(createAnswerDto: any): Promise<Answer>;
     findAll(): Promise<Answer[]>;
     findOne(id: string): Promise<Answer>;
-    update(id: string, updateAnswerDto: any): Promise<Answer>;
+    update(id: string, studentid: string, updateAnswerDto: any): Promise<Answer>;
     remove(id: string): Promise<Answer>;
 }

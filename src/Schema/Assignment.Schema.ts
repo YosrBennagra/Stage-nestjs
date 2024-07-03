@@ -44,7 +44,7 @@ export class Assignment extends Document {
   @Prop({ required: false })
   isScheduled: boolean;
 
-  //0= private, 1 = public  
+  //0= private, 1 = public
   @Prop({ required: false })
   isVisible: boolean;
 
@@ -53,6 +53,12 @@ export class Assignment extends Document {
 
   @Prop({ required: false })
   dateSchedule: string;
+
+  @Prop({ required: false })
+  userpassed: string[];
+
+  @Prop({ required: false })
+  isDuration: boolean;
 }
 
 

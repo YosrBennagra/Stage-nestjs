@@ -5,6 +5,7 @@ import { InstitutionService } from 'src/uses-case/Institution/institution.servic
 
 
 
+
 @Controller('institutions')
 export class InstitutionController {
     constructor(private readonly institutionService: InstitutionService) { }
@@ -38,5 +39,16 @@ export class InstitutionController {
         return this.institutionService.delete(id);
     }
 
+    @Public()
+    @Put(':institutionId/addResponsable/:id')
+    async addResponsable(@Param('institutionId') institutionId: string, @Param('id') id: string): Promise<Institution> {
+      return this.institutionService.addResponsable(institutionId, id);
+    }
+
+    @Public()
+    @Put(':institutionId/removeResponsable/:id')
+    async removeResponsable(@Param('institutionId') institutionId: string, @Param('id') id: string): Promise<Institution> {
+      return this.institutionService.removeResponsable(institutionId, id);
+    }
 
 }

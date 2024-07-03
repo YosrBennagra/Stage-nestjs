@@ -73,6 +73,14 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", String)
 ], Assignment.prototype, "dateSchedule", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Array)
+], Assignment.prototype, "userpassed", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Boolean)
+], Assignment.prototype, "isDuration", void 0);
 exports.Assignment = Assignment = __decorate([
     (0, mongoose_1.Schema)()
 ], Assignment);

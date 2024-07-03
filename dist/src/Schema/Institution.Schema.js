@@ -20,7 +20,7 @@ __decorate([
     __metadata("design:type", String)
 ], Institution.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User', required: false }),
     __metadata("design:type", Array)
 ], Institution.prototype, "responsables", void 0);
 exports.Institution = Institution = __decorate([

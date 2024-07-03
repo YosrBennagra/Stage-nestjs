@@ -63,4 +63,5 @@ export declare class AssignmentService {
     removeGroup(assignmentId: string, id: string): Promise<Assignment>;
     updateAssignedUsers(assignmentId: string, newAssignedUsers: string[]): Promise<Assignment>;
     updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): Promise<Assignment>;
+    updatePassUser(assignmentId: string, id: string): Promise<Assignment>;
 }

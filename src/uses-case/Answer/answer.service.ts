@@ -7,7 +7,7 @@ import { Answer } from 'src/Schema/Answer.Schema';
 
 @Injectable()
 export class AnswerService {
-  constructor(@InjectModel(Answer.name) private answerModel: Model<Answer>) {}
+  constructor(@InjectModel(Answer.name) private answerModel: Model<Answer>) { }
 
   async create(createAnswerDto: any): Promise<Answer> {
     const createdAnswer = new this.answerModel(createAnswerDto);
@@ -26,10 +26,15 @@ export class AnswerService {
     return Answer;
   }
 
-  async update(id: string, updateAnswerDto: any): Promise<Answer> {
-    const updatedAnswer = await this.answerModel.findByIdAndUpdate(id, updateAnswerDto, { new: true }).exec();
+  async update(id: string, studentId: string, updateAnswerDto: any): Promise<Answer> {
+    const updatedAnswer = await this.answerModel.findOneAndUpdate(
+      { _id: id, studentId: studentId },
+      updateAnswerDto,
+      { new: true, upsert: true }
+    ).exec();
+
     if (!updatedAnswer) {
-      throw new NotFoundException(`Answer #${id} not found`);
+      throw new NotFoundException(`Answer #${id} for student #${studentId} not found`);
     }
     return updatedAnswer;
   }
@@ -41,6 +46,7 @@ export class AnswerService {
     }
     return deletedAnswer;
   }
+
 
 
 }

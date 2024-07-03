@@ -103,7 +103,7 @@ export class AssignmentController {
             throw error;
         }
     }
-    
+
     @Public()
     @Put('/:assignmentId/updateAssignedUsers')
     async updateAssignedUsers(
@@ -117,7 +117,7 @@ export class AssignmentController {
             throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
         }
     }
-    
+
     @Public()
     @Put('/:assignmentId/updateAssignedGroups')
     async updateAssignedGroups(
@@ -131,5 +131,20 @@ export class AssignmentController {
             throw new Error(`Failed to update assigned groups for assignment ${assignmentId}: ${error.message}`);
         }
     }
-    
+
+
+    @Public()
+    @Put('/:assignmentId/userPassed/:id')
+    async updatePasseduser(
+        @Param('assignmentId') assignmentId: string,
+        @Param('id') id: string
+    ): Promise<any> {
+        try {
+            const updatedAssignment = await this.assignmentService.updatePassUser(assignmentId, id);
+            return updatedAssignment;
+        } catch (error) {
+            throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
+        }
+    }
+
 }

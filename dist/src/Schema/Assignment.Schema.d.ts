@@ -64,6 +64,8 @@ export declare class Assignment extends Document {
     isVisible: boolean;
     isInterval: boolean;
     dateSchedule: string;
+    userpassed: string[];
+    isDuration: boolean;
 }
 export declare const AssignmentSchema: mongoose.Schema<Assignment, mongoose.Model<Assignment, any, any, any, mongoose.Document<unknown, any, Assignment> & Assignment & {
     _id: mongoose.Types.ObjectId;

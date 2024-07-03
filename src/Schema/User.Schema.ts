@@ -44,10 +44,10 @@ export class User extends Document {
   passResetToken: string;
 
   @Prop({ required: false })
-  profilePicture: string; 
+  profilePicture: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Institution' })
-  institution?: string; 
+  institution?: string;
 
 }
 

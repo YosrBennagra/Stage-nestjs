@@ -61,6 +61,5 @@ export declare class ResultService {
     findOne(id: string): Promise<Result>;
     update(id: string, updateResultDto: any): Promise<Result>;
     remove(id: string): Promise<Result>;
-    findResultsByStudentId(studentId: string): Promise<any[]>;
     calculateAndSaveResults(studentId: string): Promise<Result[]>;
 }

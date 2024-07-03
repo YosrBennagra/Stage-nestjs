@@ -12,7 +12,7 @@ export class GroupService {
   async create(createGroupDto: any): Promise<Group> {
     const createdGroup = new this.groupModel({
       ...createGroupDto,
-      color: getRandomHexColor(), 
+      color: getRandomHexColor(),
     });
 
     return createdGroup.save();
@@ -39,7 +39,7 @@ export class GroupService {
     return this.groupModel.findByIdAndUpdate(groupId, { $push: { users: id } }, { new: true }).exec();
   }
 
-  
+
   async removeUser(groupId: string, id: string): Promise<Group> {
     return this.groupModel.findByIdAndUpdate(groupId, { $pull: { users: id } }, { new: true }).exec();
   }
@@ -50,5 +50,6 @@ function getRandomHexColor() {
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
+  console.log(color);
   return color;
 }

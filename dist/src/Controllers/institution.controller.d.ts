@@ -8,4 +8,6 @@ export declare class InstitutionController {
     findOne(id: string): Promise<Institution>;
     update(id: string, updateInstitutionDto: any): Promise<Institution>;
     delete(id: string): Promise<Institution>;
+    addResponsable(institutionId: string, id: string): Promise<Institution>;
+    removeResponsable(institutionId: string, id: string): Promise<Institution>;
 }

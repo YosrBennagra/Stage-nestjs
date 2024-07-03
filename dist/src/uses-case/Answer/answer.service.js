@@ -35,10 +35,10 @@ let AnswerService = class AnswerService {
         }
         return Answer;
     }
-    async update(id, updateAnswerDto) {
-        const updatedAnswer = await this.answerModel.findByIdAndUpdate(id, updateAnswerDto, { new: true }).exec();
+    async update(id, studentId, updateAnswerDto) {
+        const updatedAnswer = await this.answerModel.findOneAndUpdate({ _id: id, studentId: studentId }, updateAnswerDto, { new: true, upsert: true }).exec();
         if (!updatedAnswer) {
-            throw new common_1.NotFoundException(`Answer #${id} not found`);
+            throw new common_1.NotFoundException(`Answer #${id} for student #${studentId} not found`);
         }
         return updatedAnswer;
     }

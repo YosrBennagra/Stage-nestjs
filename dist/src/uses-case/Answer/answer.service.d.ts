@@ -55,6 +55,6 @@ export declare class AnswerService {
     create(createAnswerDto: any): Promise<Answer>;
     findAll(): Promise<Answer[]>;
     findOne(id: string): Promise<Answer>;
-    update(id: string, updateAnswerDto: any): Promise<Answer>;
+    update(id: string, studentId: string, updateAnswerDto: any): Promise<Answer>;
     remove(id: string): Promise<Answer>;
 }

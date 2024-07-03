@@ -7,7 +7,7 @@ export class Institution extends Document {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required:false })
     responsables: string[];
 
 }

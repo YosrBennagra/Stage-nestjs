@@ -146,7 +146,6 @@ async updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): P
     if (!assignment) {
         throw new NotFoundException(`Assignment #${assignmentId} not found`);
     }
-    
     const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
         assignmentId,
         { $set: { assignedToGroups: newAssignedGroups } },
@@ -154,6 +153,20 @@ async updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): P
     ).exec();
 
     return updatedAssignment;
+}
+
+async updatePassUser(assignmentId: string, id: string): Promise<Assignment> {
+  const assignment = await this.assignmentModel.findById(assignmentId).exec();
+  if (!assignment) {
+    throw new NotFoundException(`Assignment #${assignmentId} not found`);
+  }
+
+  const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(
+    assignmentId,
+    { $push: { userpassed: id } },
+    { new: true }
+  ).exec();
+  return updatedAssignment;
 }
 
 

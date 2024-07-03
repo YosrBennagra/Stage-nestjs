@@ -51,6 +51,7 @@ import mongoose, { Document } from 'mongoose';
 export declare class Answer extends Document {
     questionId: string;
     studentId: string;
+    assignmentId: string;
     content?: string[];
     isCorrect: boolean;
     score: number;

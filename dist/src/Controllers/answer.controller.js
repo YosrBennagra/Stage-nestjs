@@ -33,8 +33,8 @@ let AnswerController = class AnswerController {
         }
         return answer;
     }
-    async update(id, updateAnswerDto) {
-        const answer = await this.answerService.update(id, updateAnswerDto);
+    async update(id, studentid, updateAnswerDto) {
+        const answer = await this.answerService.update(id, studentid, updateAnswerDto);
         if (!answer) {
             throw new common_1.NotFoundException(`answer #${id} not found`);
         }
@@ -74,11 +74,12 @@ __decorate([
 ], AnswerController.prototype, "findOne", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Put)(':id'),
+    (0, common_1.Put)(':id/:studentid'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('studentid')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
 ], AnswerController.prototype, "update", null);
 __decorate([

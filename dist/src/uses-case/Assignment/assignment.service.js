@@ -122,6 +122,14 @@ let AssignmentService = class AssignmentService {
         const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(assignmentId, { $set: { assignedToGroups: newAssignedGroups } }, { new: true }).exec();
         return updatedAssignment;
     }
+    async updatePassUser(assignmentId, id) {
+        const assignment = await this.assignmentModel.findById(assignmentId).exec();
+        if (!assignment) {
+            throw new common_1.NotFoundException(`Assignment #${assignmentId} not found`);
+        }
+        const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(assignmentId, { $push: { userpassed: id } }, { new: true }).exec();
+        return updatedAssignment;
+    }
 };
 exports.AssignmentService = AssignmentService;
 exports.AssignmentService = AssignmentService = __decorate([

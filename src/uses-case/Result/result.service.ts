@@ -47,61 +47,51 @@ export class ResultService {
         return deletedResult;
     }
 
-    async findResultsByStudentId(studentId: string): Promise<any[]> {
-        return this.resultModel.aggregate([
-            { $match: { studentId: studentId } },
-            {
-                $group: {
-                    _id: '$assignmentId',
-                    totalScore: { $sum: '$score' },
-                }
-            },
-            {
-                $lookup: {
-                    from: 'assignments',
-                    localField: '_id',
-                    foreignField: '_id',
-                    as: 'assignmentDetails',
-                },
-            },
-            { $unwind: '$assignmentDetails' },
-            {
-                $project: {
-                    assignmentId: '$_id',
-                    totalScore: 1,
-                    assignmentName: '$assignmentDetails.name',
-                },
-            }
-        ]).exec();
-    }
-
     async calculateAndSaveResults(studentId: string): Promise<Result[]> {
-        const results = await this.answerModel.aggregate([
-            { $match: { studentId: new mongoose.Types.ObjectId(studentId) } },
-            {
-                $lookup: {
-                    from: 'questions',
-                    localField: 'questionId',
-                    foreignField: '_id',
-                    as: 'questionDetails'
-                }
-            },
-            { $unwind: '$questionDetails' },
-            {
-                $group: {
-                    _id: '$questionDetails.assignementId',
+        console.log("🚀 ~ file: result.service.ts:80 ~ ResultService ~ calculateAndSaveResults ~ studentId:", studentId);
+        try {
+            const results = await this.answerModel.aggregate([
+                {
+                  $match: {
+                    studentId: new mongoose.Types.ObjectId("6671bc926e9424140ed74951") 
+                  }
+                },
+                {
+                  $group: {
+                    _id: '$assignmentId',
                     totalScore: { $sum: '$score' }
+                  }
                 }
-            }
-        ]).exec();
-        const savedResults = await Promise.all(results.map(async (result) => {
-            const newResult = new this.resultModel({
+              ]).exec();
+
+          if (results.length === 0) {
+            console.warn(`No results found for student ID: ${studentId}`);
+            return [];
+          }
+          const savedResults = await Promise.all(results.map(async (result) => {
+            const existingResult = await this.resultModel.findOne({
+              assignmentId: result._id,
+              studentId: studentId
+            });
+
+            if (existingResult) {
+              existingResult.score = result.totalScore;
+              return existingResult.save();
+            } else {
+              const newResult = new this.resultModel({
                 assignmentId: result._id,
                 studentId: studentId,
                 score: result.totalScore,
-            });
-            return newResult.save();
-        }));
-        return savedResults;
-    }
+              });
+              return newResult.save();
+            }
+          }));
+
+          console.log("🚀 ~ file: result.service.ts:80 ~ ResultService ~ calculateAndSaveResults ~ savedResults:", savedResults);
+          return savedResults;
+        } catch (error) {
+          console.error("Error in calculateAndSaveResults:", error);
+          throw new Error("Failed to calculate and save results");
+        }
+      }
 }

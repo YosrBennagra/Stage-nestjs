@@ -19,41 +19,38 @@ const mongoose_2 = require("mongoose");
 const Institution_Schema_1 = require("../../Schema/Institution.Schema");
 const User_Schema_1 = require("../../Schema/User.Schema");
 let InstitutionService = class InstitutionService {
-    constructor(institutionModel, UserModel) {
+    constructor(institutionModel, userModel) {
         this.institutionModel = institutionModel;
-        this.UserModel = UserModel;
+        this.userModel = userModel;
     }
     async create(createInstitutionDto) {
-        const { responsables } = createInstitutionDto;
-        if (responsables && responsables.length > 0) {
-            for (const responsableId of responsables) {
-                const user = await this.UserModel.findById(responsableId).exec();
-                if (user && user.institution) {
-                    throw new common_1.BadRequestException(`User ${responsableId} already belongs to another institution`);
-                }
-            }
-        }
         const createdInstitution = new this.institutionModel({
             ...createInstitutionDto,
         });
-        if (responsables) {
-            for (const responsableId of responsables) {
-                await this.UserModel.findByIdAndUpdate(responsableId, { institution: createdInstitution._id }).exec();
-            }
-        }
         return createdInstitution.save();
     }
     async findAll() {
-        return this.institutionModel.find().exec();
+        return this.institutionModel.find().populate('responsables').exec();
     }
     async findOne(id) {
-        return (await this.institutionModel.findById(id).exec());
+        return (await (await this.institutionModel.findById(id)).populate('responsables'));
     }
     async update(id, updateInstitutionDto) {
         return this.institutionModel.findByIdAndUpdate(id, updateInstitutionDto, { new: true }).exec();
     }
     async delete(id) {
         return this.institutionModel.findByIdAndDelete(id).exec();
+    }
+    async addResponsable(responsablesId, id) {
+        console.log('addResponsable', responsablesId, id);
+        const user = await this.userModel.findByIdAndUpdate(id, { institution: responsablesId }, { new: true }).exec();
+        if (!user) {
+            throw new common_1.BadRequestException('User not found');
+        }
+        return this.institutionModel.findByIdAndUpdate(responsablesId, { $addToSet: { responsables: id } }, { new: true }).exec();
+    }
+    async removeResponsable(responsablesId, id) {
+        return this.institutionModel.findByIdAndUpdate(responsablesId, { $pull: { responsables: id } }, { new: true }).exec();
     }
 };
 exports.InstitutionService = InstitutionService;

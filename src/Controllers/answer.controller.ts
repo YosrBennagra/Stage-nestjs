@@ -30,9 +30,9 @@ export class AnswerController {
     }
 
     @Public()
-    @Put(':id')
-    async update(@Param('id') id: string, @Body() updateAnswerDto: any): Promise<Answer> {
-        const answer = await this.answerService.update(id, updateAnswerDto);
+    @Put(':id/:studentid')
+    async update(@Param('id') id: string,@Param('studentid') studentid: string, @Body() updateAnswerDto: any): Promise<Answer> {
+        const answer = await this.answerService.update(id,studentid, updateAnswerDto);
         if (!answer) {
             throw new NotFoundException(`answer #${id} not found`);
         }
@@ -48,6 +48,8 @@ export class AnswerController {
         }
         return answer;
     }
-    
+
+
+
 
 }

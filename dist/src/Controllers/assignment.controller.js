@@ -109,6 +109,15 @@ let AssignmentController = class AssignmentController {
             throw new Error(`Failed to update assigned groups for assignment ${assignmentId}: ${error.message}`);
         }
     }
+    async updatePasseduser(assignmentId, id) {
+        try {
+            const updatedAssignment = await this.assignmentService.updatePassUser(assignmentId, id);
+            return updatedAssignment;
+        }
+        catch (error) {
+            throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
+        }
+    }
 };
 exports.AssignmentController = AssignmentController;
 __decorate([
@@ -205,6 +214,15 @@ __decorate([
     __metadata("design:paramtypes", [String, Array]),
     __metadata("design:returntype", Promise)
 ], AssignmentController.prototype, "updateAssignedGroups", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)('/:assignmentId/userPassed/:id'),
+    __param(0, (0, common_1.Param)('assignmentId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "updatePasseduser", null);
 exports.AssignmentController = AssignmentController = __decorate([
     (0, common_1.Controller)('assignments'),
     __metadata("design:paramtypes", [assignment_service_1.AssignmentService])

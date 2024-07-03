@@ -35,6 +35,12 @@ let InstitutionController = class InstitutionController {
     async delete(id) {
         return this.institutionService.delete(id);
     }
+    async addResponsable(institutionId, id) {
+        return this.institutionService.addResponsable(institutionId, id);
+    }
+    async removeResponsable(institutionId, id) {
+        return this.institutionService.removeResponsable(institutionId, id);
+    }
 };
 exports.InstitutionController = InstitutionController;
 __decorate([
@@ -77,6 +83,24 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], InstitutionController.prototype, "delete", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':institutionId/addResponsable/:id'),
+    __param(0, (0, common_1.Param)('institutionId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], InstitutionController.prototype, "addResponsable", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Put)(':institutionId/removeResponsable/:id'),
+    __param(0, (0, common_1.Param)('institutionId')),
+    __param(1, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], InstitutionController.prototype, "removeResponsable", null);
 exports.InstitutionController = InstitutionController = __decorate([
     (0, common_1.Controller)('institutions'),
     __metadata("design:paramtypes", [institution_service_1.InstitutionService])

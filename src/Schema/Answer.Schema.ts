@@ -13,6 +13,9 @@ export class Answer extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   studentId: string;
 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
+  assignmentId: string;
+
   @Prop({ required: true })
   content?: string[];
 
@@ -21,7 +24,7 @@ export class Answer extends Document {
 
   @Prop({ required: true })
   score: number;
-  
+
 }
 
 export const AnswerSchema = SchemaFactory.createForClass(Answer);
