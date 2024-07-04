@@ -9,4 +9,5 @@ export declare class ResultController {
     update(id: string, updateResultDto: any): Promise<Result>;
     remove(id: string): Promise<Result>;
     calculateAndSaveResults(studentId: string): Promise<Result[]>;
+    GetAssignmentResults(studentId: string, assignmentId: string): Promise<Result>;
 }

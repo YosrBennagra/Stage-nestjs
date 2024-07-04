@@ -39,6 +39,13 @@ let SubjectService = class SubjectService {
     async delete(id) {
         return this.subjectModel.findByIdAndDelete(id).exec();
     }
+    async getSubjectsByInstitution(institution) {
+        const result = await this.subjectModel.find({ institution }).exec();
+        if (!result || result.length === 0) {
+            throw new common_1.NotFoundException(`Subject not found for ${institution}`);
+        }
+        return result;
+    }
 };
 exports.SubjectService = SubjectService;
 exports.SubjectService = SubjectService = __decorate([

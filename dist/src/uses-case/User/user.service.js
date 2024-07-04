@@ -185,6 +185,13 @@ let UserService = class UserService {
             text,
         });
     }
+    async getUserbyInstitution(institution) {
+        const result = await this.userModel.find({ institution }).exec();
+        if (!result || result.length === 0) {
+            throw new common_1.NotFoundException(`user not found for ${institution}`);
+        }
+        return result;
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

@@ -99,6 +99,13 @@ let ResultService = class ResultService {
             throw new Error("Failed to calculate and save results");
         }
     }
+    async getResultByStudentAndAssignment(studentId, assignmentId) {
+        const result = await this.resultModel.findOne({ studentId, assignmentId }).exec();
+        if (!result) {
+            throw new common_1.NotFoundException(`Result for student ID ${studentId} and assignment ID ${assignmentId} not found`);
+        }
+        return result;
+    }
 };
 exports.ResultService = ResultService;
 exports.ResultService = ResultService = __decorate([

@@ -35,6 +35,14 @@ let SubjectController = class SubjectController {
     async delete(id) {
         return this.subjectService.delete(id);
     }
+    async GetAssignmentResults(institution) {
+        try {
+            return await this.subjectService.getSubjectsByInstitution(institution);
+        }
+        catch (error) {
+            throw new common_1.NotFoundException(error.message);
+        }
+    }
 };
 exports.SubjectController = SubjectController;
 __decorate([
@@ -77,6 +85,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SubjectController.prototype, "delete", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('/getsubjectsBy/:institution'),
+    __param(0, (0, common_1.Param)('institution')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SubjectController.prototype, "GetAssignmentResults", null);
 exports.SubjectController = SubjectController = __decorate([
     (0, common_1.Controller)('subjects'),
     __metadata("design:paramtypes", [subject_service_1.SubjectService])

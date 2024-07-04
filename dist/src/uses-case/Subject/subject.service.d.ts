@@ -57,4 +57,5 @@ export declare class SubjectService {
     findOne(id: string): Promise<Subject>;
     update(id: string, updateSubjectDto: any): Promise<Subject>;
     delete(id: string): Promise<Subject>;
+    getSubjectsByInstitution(institution: string): Promise<Subject[]>;
 }

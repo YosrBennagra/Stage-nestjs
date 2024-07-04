@@ -150,6 +150,18 @@ export class UsersController {
     }
   }
 
-
+  @Public()
+  @Get('/institutions/:id')
+  async GetAssignmentResults(
+    @Param('id') id: string,
+  ): Promise<User[]> {
+    try {
+      return await this.usersService.getUserbyInstitution(
+        id,
+      );
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
 }

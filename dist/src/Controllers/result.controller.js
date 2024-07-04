@@ -50,6 +50,14 @@ let ResultController = class ResultController {
     async calculateAndSaveResults(studentId) {
         return this.resultService.calculateAndSaveResults(studentId);
     }
+    async GetAssignmentResults(studentId, assignmentId) {
+        try {
+            return await this.resultService.getResultByStudentAndAssignment(studentId, assignmentId);
+        }
+        catch (error) {
+            throw new common_1.NotFoundException(error.message);
+        }
+    }
 };
 exports.ResultController = ResultController;
 __decorate([
@@ -100,6 +108,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ResultController.prototype, "calculateAndSaveResults", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('/student/:studentId/:assignmentId'),
+    __param(0, (0, common_1.Param)('studentId')),
+    __param(1, (0, common_1.Param)('assignmentId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ResultController.prototype, "GetAssignmentResults", null);
 exports.ResultController = ResultController = __decorate([
     (0, common_1.Controller)('results'),
     __metadata("design:paramtypes", [result_service_1.ResultService])

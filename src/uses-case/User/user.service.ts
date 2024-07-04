@@ -214,6 +214,15 @@ export class UserService {
       text,
     })
   }
+
+  async getUserbyInstitution(institution: string): Promise<User[]> {
+    const result = await this.userModel.find({ institution }).exec();
+    if (!result || result.length === 0) {
+        throw new NotFoundException(`user not found for ${institution}`);
+    }
+    return result;
+}
+
 }
 
 

@@ -6,7 +6,7 @@ import { ResultService } from 'src/uses-case/Result/result.service';
 
 @Controller('results')
 export class ResultController {
-  constructor(private readonly resultService: ResultService) {}
+  constructor(private readonly resultService: ResultService) { }
 
   @Public()
   @Post()
@@ -55,4 +55,23 @@ export class ResultController {
   async calculateAndSaveResults(@Param('studentId') studentId: string): Promise<Result[]> {
     return this.resultService.calculateAndSaveResults(studentId);
   }
+
+
+  @Public()
+  @Get('/student/:studentId/:assignmentId')
+  async GetAssignmentResults(
+    @Param('studentId') studentId: string,
+    @Param('assignmentId') assignmentId: string,
+  ): Promise<Result> {
+    try {
+      return await this.resultService.getResultByStudentAndAssignment(
+        studentId,
+        assignmentId,
+      );
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
+
 }

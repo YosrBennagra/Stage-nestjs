@@ -9,7 +9,6 @@ export class Institution extends Document {
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required:false })
     responsables: string[];
-
 }
 
 export const InstitutionSchema = SchemaFactory.createForClass(Institution);

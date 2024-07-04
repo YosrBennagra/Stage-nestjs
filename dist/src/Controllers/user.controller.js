@@ -126,6 +126,14 @@ let UsersController = class UsersController {
             return { success: false, error: error.message };
         }
     }
+    async GetAssignmentResults(id) {
+        try {
+            return await this.usersService.getUserbyInstitution(id);
+        }
+        catch (error) {
+            throw new common_1.NotFoundException(error.message);
+        }
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -218,6 +226,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateDataUser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('/institutions/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "GetAssignmentResults", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [User_1.UserService,

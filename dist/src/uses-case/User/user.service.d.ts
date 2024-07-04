@@ -81,4 +81,5 @@ export declare class UserService {
     updateUserData(userId: string, un: string, fn: string, ln: string): Promise<User>;
     setCurrentRefreshToken(refreshToken: string, userId: string): Promise<void>;
     sendPasswordResetEmail(email: string): Promise<void>;
+    getUserbyInstitution(institution: string): Promise<User[]>;
 }

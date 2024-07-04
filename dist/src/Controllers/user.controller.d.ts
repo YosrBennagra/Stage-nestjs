@@ -104,4 +104,5 @@ export declare class UsersController {
         error: any;
         user?: undefined;
     }>;
+    GetAssignmentResults(id: string): Promise<User[]>;
 }

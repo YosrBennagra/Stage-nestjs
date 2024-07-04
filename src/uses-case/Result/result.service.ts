@@ -94,4 +94,13 @@ export class ResultService {
           throw new Error("Failed to calculate and save results");
         }
       }
+
+      async getResultByStudentAndAssignment(studentId: string, assignmentId: string): Promise<Result> {
+        const result = await this.resultModel.findOne({ studentId, assignmentId }).exec();
+        if (!result) {
+            throw new NotFoundException(`Result for student ID ${studentId} and assignment ID ${assignmentId} not found`);
+        }
+        return result;
+    }
+
 }

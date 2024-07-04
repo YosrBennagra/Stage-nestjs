@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, NotFoundException } from '@nestjs/common';
 import { Public } from 'src/Custom Decorators/public.decorator';
 import { Institution } from 'src/Schema/Institution.Schema';
 import { Subject } from 'src/Schema/Subject.Schema';
@@ -40,5 +40,16 @@ export class SubjectController {
         return this.subjectService.delete(id);
     }
 
+    @Public()
+    @Get('/getsubjectsBy/:institution')
+    async GetAssignmentResults(
+        @Param('institution') institution: string,
+    ): Promise<Subject[]> {
+        try {
+            return await this.subjectService.getSubjectsByInstitution(institution);
+        } catch (error) {
+            throw new NotFoundException(error.message);
+        }
+    }
 
 }

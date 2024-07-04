@@ -8,4 +8,5 @@ export declare class SubjectController {
     findOne(id: string): Promise<Subject>;
     update(id: string, updateSubjectDto: any): Promise<Subject>;
     delete(id: string): Promise<Subject>;
+    GetAssignmentResults(institution: string): Promise<Subject[]>;
 }

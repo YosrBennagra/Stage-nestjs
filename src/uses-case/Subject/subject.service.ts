@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Institution } from 'src/Schema/Institution.Schema';
@@ -32,5 +32,13 @@ export class SubjectService {
 
   async delete(id: string): Promise<Subject> {
     return this.subjectModel.findByIdAndDelete(id).exec();
+  }
+
+  async getSubjectsByInstitution(institution: string): Promise<Subject[]> {
+    const result = await this.subjectModel.find({ institution }).exec();
+    if (!result || result.length === 0) {
+      throw new NotFoundException(`Subject not found for ${institution}`);
+    }
+    return result;
   }
 }

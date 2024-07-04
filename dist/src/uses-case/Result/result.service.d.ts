@@ -62,4 +62,5 @@ export declare class ResultService {
     update(id: string, updateResultDto: any): Promise<Result>;
     remove(id: string): Promise<Result>;
     calculateAndSaveResults(studentId: string): Promise<Result[]>;
+    getResultByStudentAndAssignment(studentId: string, assignmentId: string): Promise<Result>;
 }
