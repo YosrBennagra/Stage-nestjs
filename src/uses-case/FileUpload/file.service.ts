@@ -1,13 +1,16 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { MongoGridFS } from 'mongo-gridfs';
-import { GridFSBucket, GridFSBucketReadStream, GridFSBucketWriteStream } from 'mongodb';
+import { GridFSBucket, GridFSBucketReadStream } from 'mongodb';
 import { DATA_BASE_CONFIGURATION } from 'src/Config/Mongo';
+
+import { FileUploadDto } from './model/FileUploadDto';
 import { FileInfoVm } from './model/FileInfoVm ';
 
 @Injectable()
 export class FileService {
   private fileModel: MongoGridFS;
   private gridFSBucket: GridFSBucket;
+  
   constructor() {
     this.initializeFileModel();
   }
@@ -20,11 +23,11 @@ export class FileService {
       await client.connect();
       const db = client.db();
       this.fileModel = new MongoGridFS(db, 'fs');
+      this.gridFSBucket = new GridFSBucket(db, { bucketName: 'fs' });
     } catch (err) {
       throw new HttpException('Failed to connect to MongoDB', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
-
 
   async readStream(id: string): Promise<GridFSBucketReadStream> {
     if (!this.fileModel) {
@@ -46,7 +49,7 @@ export class FileService {
       filename: result.filename,
       length: result.length,
       chunkSize: result.chunkSize,
-      md5: "", // You can set md5 to an empty string or any default value here
+      md5:'',
       contentType: result.contentType
     };
   }
@@ -57,5 +60,26 @@ export class FileService {
     }
     return await this.fileModel.delete(id);
   }
-  
+
+  async uploadFile(file: Express.Multer.File): Promise<FileUploadDto> {
+    return new Promise((resolve, reject) => {
+      const writeStream = this.gridFSBucket.openUploadStream(file.originalname, {
+        contentType: file.mimetype,
+      });
+
+      writeStream.on('finish', () => {
+        resolve({
+          id: writeStream.id.toString(),
+          filename: file.originalname,
+          contentType: file.mimetype,
+        });
+      });
+
+      writeStream.on('error', (error) => {
+        reject(new HttpException(`File upload failed: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR));
+      });
+
+      writeStream.end(file.buffer);
+    });
+  }
 }

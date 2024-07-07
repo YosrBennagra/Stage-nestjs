@@ -22,6 +22,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const email_service_1 = require("../email/email.service");
 const Role_1 = require("../../Schema/Enum/Role");
+const TypeAccount_1 = require("../../Schema/Enum/TypeAccount");
 let UserService = class UserService {
     constructor(emailService, userRe, userModel) {
         this.emailService = emailService;
@@ -94,8 +95,27 @@ let UserService = class UserService {
         }
         return { users, count };
     }
+    async findUsersByStatusNotConfirmed(search, limit, offset) {
+        const query = { status: TypeAccount_1.TypeAccount.NOTCONFIRMED };
+        if (search) {
+            query['$or'] = [
+                { username: { $regex: search, $options: 'i' } },
+                { email: { $regex: search, $options: 'i' } }
+            ];
+        }
+        const users = await this.userModel
+            .find(query)
+            .skip(offset)
+            .limit(limit)
+            .exec();
+        const count = await this.userModel.countDocuments(query).exec();
+        return { users, count };
+    }
     UpdateUser(id, creatuserdto) {
         return this.userRe.update(id, creatuserdto);
+    }
+    AcceptStudent(id) {
+        return this.userModel.findByIdAndUpdate(id, { status: TypeAccount_1.TypeAccount.CONFIRMED });
     }
     UpdateUser2(id, firstname, lastname) {
         return this.userRe.updateUserFirstnameAndLastname(id, firstname, lastname);

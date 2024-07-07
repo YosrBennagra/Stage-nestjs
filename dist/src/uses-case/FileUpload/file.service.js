@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileService = void 0;
 const common_1 = require("@nestjs/common");
 const mongo_gridfs_1 = require("mongo-gridfs");
+const mongodb_1 = require("mongodb");
 const Mongo_1 = require("../../Config/Mongo");
 let FileService = class FileService {
     constructor() {
@@ -24,6 +25,7 @@ let FileService = class FileService {
             await client.connect();
             const db = client.db();
             this.fileModel = new mongo_gridfs_1.MongoGridFS(db, 'fs');
+            this.gridFSBucket = new mongodb_1.GridFSBucket(db, { bucketName: 'fs' });
         }
         catch (err) {
             throw new common_1.HttpException('Failed to connect to MongoDB', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
@@ -46,7 +48,7 @@ let FileService = class FileService {
             filename: result.filename,
             length: result.length,
             chunkSize: result.chunkSize,
-            md5: "",
+            md5: '',
             contentType: result.contentType
         };
     }
@@ -55,6 +57,24 @@ let FileService = class FileService {
             throw new common_1.HttpException('File model is not initialized', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return await this.fileModel.delete(id);
+    }
+    async uploadFile(file) {
+        return new Promise((resolve, reject) => {
+            const writeStream = this.gridFSBucket.openUploadStream(file.originalname, {
+                contentType: file.mimetype,
+            });
+            writeStream.on('finish', () => {
+                resolve({
+                    id: writeStream.id.toString(),
+                    filename: file.originalname,
+                    contentType: file.mimetype,
+                });
+            });
+            writeStream.on('error', (error) => {
+                reject(new common_1.HttpException(`File upload failed: ${error.message}`, common_1.HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+            writeStream.end(file.buffer);
+        });
     }
 };
 exports.FileService = FileService;

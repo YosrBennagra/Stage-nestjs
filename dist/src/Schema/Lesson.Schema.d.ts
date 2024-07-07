@@ -47,48 +47,18 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { User } from "../../Schema/User.Schema";
-import { UserRepository } from "./UserRepo/user.repository";
-import { Model } from "mongoose";
-import { CreatUserDto } from "./DTO/CreatUser.dto";
-import { LoginDto } from "./DTO/Login.dto";
-import EmailService from "../email/email.service";
-export declare class UserService {
-    private readonly emailService;
-    private readonly userRe;
-    private userModel;
-    constructor(emailService: EmailService, userRe: UserRepository, userModel: Model<User>);
-    CreatUser({ ...creatUserDto }: CreatUserDto): Promise<import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    loginUser(loginDto: LoginDto): Promise<User>;
-    findAll(): Promise<User[]>;
-    deleteUser(id: string): Promise<User>;
-    findOneUser(id: string): Promise<User>;
-    findUserByEmail(email: string): Promise<User>;
-    findUserByRole(role: string, search: string, limit: number, offset: number): Promise<{
-        users: User[];
-        count: number;
-    }>;
-    findUsersByStatusNotConfirmed(search: string, limit: number, offset: number): Promise<{
-        users: User[];
-        count: number;
-    }>;
-    UpdateUser(id: string, creatuserdto: CreatUserDto): Promise<User>;
-    AcceptStudent(id: string): import("mongoose").Query<import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    }, import("mongoose").Document<unknown, {}, User> & User & {
-        _id: import("mongoose").Types.ObjectId;
-    }, {}, User, "findOneAndUpdate">;
-    UpdateUser2(id: string, firstname: string, lastname: string): Promise<User>;
-    markEmailAsConfirmed(id: string): Promise<User>;
-    deleteUnconfirmedUsers(): Promise<void>;
-    deleteUserProfile(userId: string): Promise<void>;
-    setTwoFactorAuthenticationSecret(secret: string, userId: string): Promise<User>;
-    turnOnTwoFactorAuthentication(userId: string): Promise<boolean>;
-    updateUserProfilePicture(userId: string, ppid: string): Promise<User>;
-    updateUserData(userId: string, un: string, fn: string, ln: string): Promise<User>;
-    setCurrentRefreshToken(refreshToken: string, userId: string): Promise<void>;
-    sendPasswordResetEmail(email: string): Promise<void>;
-    getUserbyInstitution(institution: string): Promise<User[]>;
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { File } from './file.schema';
+export declare class Lesson extends Document {
+    subject: string;
+    assignment?: string;
+    title: string;
+    description?: string[];
+    group?: string;
+    files?: File[];
 }
+export declare const LessonSchema: MongooseSchema<Lesson, import("mongoose").Model<Lesson, any, any, any, Document<unknown, any, Lesson> & Lesson & {
+    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Lesson, Document<unknown, {}, import("mongoose").FlatRecord<Lesson>> & import("mongoose").FlatRecord<Lesson> & {
+    _id: import("mongoose").Types.ObjectId;
+}>;

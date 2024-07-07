@@ -69,6 +69,18 @@ let UsersController = class UsersController {
         }
         return user;
     }
+    async getUsersByStatusNotConfirmed(search, limit = 10, offset = 0) {
+        try {
+            const { users, count } = await this.usersService.findUsersByStatusNotConfirmed(search, limit, offset);
+            if (!users || users.length === 0) {
+                throw new common_1.NotFoundException('Users not found');
+            }
+            return { users, count };
+        }
+        catch (error) {
+            throw new common_1.HttpException(error.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     async UpdateUser(creatUserDto, id) {
         const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
         if (!isValid)
@@ -134,6 +146,13 @@ let UsersController = class UsersController {
             throw new common_1.NotFoundException(error.message);
         }
     }
+    async acceptUser(id) {
+        const user = await this.usersService.AcceptStudent(id);
+        if (!user) {
+            throw new common_1.HttpException('User not found', 404);
+        }
+        return user;
+    }
 };
 exports.UsersController = UsersController;
 __decorate([
@@ -187,6 +206,16 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUserByEmail", null);
 __decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('status/not-confirmed'),
+    __param(0, (0, common_1.Query)('search')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('offset')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number, Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getUsersByStatusNotConfirmed", null);
+__decorate([
     (0, common_1.Patch)('/update/:id'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('id')),
@@ -234,6 +263,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "GetAssignmentResults", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Patch)(':id/accept'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "acceptUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [User_1.UserService,

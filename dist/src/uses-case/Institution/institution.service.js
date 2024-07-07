@@ -16,6 +16,7 @@ exports.InstitutionService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const Role_1 = require("../../Schema/Enum/Role");
 const Institution_Schema_1 = require("../../Schema/Institution.Schema");
 const User_Schema_1 = require("../../Schema/User.Schema");
 let InstitutionService = class InstitutionService {
@@ -43,9 +44,21 @@ let InstitutionService = class InstitutionService {
     }
     async addResponsable(responsablesId, id) {
         console.log('addResponsable', responsablesId, id);
-        const user = await this.userModel.findByIdAndUpdate(id, { institution: responsablesId }, { new: true }).exec();
+        const user = await this.userModel.findById(id).exec();
         if (!user) {
             throw new common_1.BadRequestException('User not found');
+        }
+        if (user.Role !== 'admin') {
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, { Role: Role_1.Role.RESPONSABLE, institution: responsablesId }, { new: true }).exec();
+            if (!updatedUser) {
+                throw new common_1.BadRequestException('Failed to update user role');
+            }
+        }
+        else {
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, { institution: responsablesId }, { new: true }).exec();
+            if (!updatedUser) {
+                throw new common_1.BadRequestException('Failed to update user institution');
+            }
         }
         return this.institutionModel.findByIdAndUpdate(responsablesId, { $addToSet: { responsables: id } }, { new: true }).exec();
     }

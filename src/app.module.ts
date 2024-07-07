@@ -21,6 +21,7 @@ import { ResultModule } from './uses-case/Result/result.module';
 import { GroupModule } from './uses-case/Group/group.module';
 import { InstitutionModule } from './uses-case/Institution/institution.module';
 import { SubjectModule } from './uses-case/Subject/subject.module';
+import { LessonModule } from './uses-case/lesson/lesson.module';
 
 
 
@@ -42,6 +43,7 @@ import { SubjectModule } from './uses-case/Subject/subject.module';
     GroupModule,
     InstitutionModule,
     SubjectModule,
+    LessonModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     ConfigModule.forRoot({

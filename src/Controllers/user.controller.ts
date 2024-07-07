@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Put, Query } from "@nestjs/common";
 import { User } from "../Schema/User.Schema";
 import { UserRepository, UserService } from "../uses-case/User";
 import { CreatUserDto } from "../uses-case/User/DTO/CreatUser.dto";
@@ -68,6 +68,7 @@ export class UsersController {
     return { users, count };
   }
 
+
   @Public()
   @Get('email/:email')
   async getUserByEmail(@Param('email') email: string) {
@@ -76,6 +77,24 @@ export class UsersController {
       throw new HttpException('User not found', 404);
     }
     return user;
+  }
+
+  @Public()
+  @Get('status/not-confirmed')
+  async getUsersByStatusNotConfirmed(
+    @Query('search') search: string,
+    @Query('limit') limit: number = 10,
+    @Query('offset') offset: number = 0
+  ) {
+    try {
+      const { users, count } = await this.usersService.findUsersByStatusNotConfirmed(search, limit, offset);
+      if (!users || users.length === 0) {
+        throw new NotFoundException('Users not found');
+      }
+      return { users, count };
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Patch('/update/:id')
@@ -162,6 +181,16 @@ export class UsersController {
     } catch (error) {
       throw new NotFoundException(error.message);
     }
+  }
+
+  @Public()
+  @Patch(':id/accept')
+  async acceptUser(@Param('id') id: string) {
+    const user = await this.usersService.AcceptStudent(id);
+    if (!user) {
+      throw new HttpException('User not found', 404);
+    }
+    return user;
   }
 
 }

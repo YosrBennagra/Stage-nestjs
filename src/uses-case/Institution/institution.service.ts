@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model, Types } from 'mongoose';
+import { Role } from 'src/Schema/Enum/Role';
 import { Institution } from 'src/Schema/Institution.Schema';
 import { User } from 'src/Schema/User.Schema';
 
@@ -36,15 +37,26 @@ export class InstitutionService {
 
     async addResponsable(responsablesId: string, id: string): Promise<Institution> {
         console.log('addResponsable', responsablesId, id);
-        const user = await this.userModel.findByIdAndUpdate(id, { institution: responsablesId  }, { new: true }).exec();
+        const user = await this.userModel.findById(id).exec();
         if (!user) {
-          throw new BadRequestException('User not found');
+            throw new BadRequestException('User not found');
         }
+        if (user.Role !== 'admin') {
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, { Role: Role.RESPONSABLE, institution: responsablesId }, { new: true }).exec();
+            if (!updatedUser) {
+                throw new BadRequestException('Failed to update user role');
+            }
+        } else {
+            const updatedUser = await this.userModel.findByIdAndUpdate(id, { institution: responsablesId }, { new: true }).exec();
+            if (!updatedUser) {
+                throw new BadRequestException('Failed to update user institution');
+            }
 
+        }
         return this.institutionModel.findByIdAndUpdate(responsablesId, { $addToSet: { responsables: id } }, { new: true }).exec();
-      }
+    }
 
-      async removeResponsable(responsablesId: string, id: string): Promise<Institution> {
+    async removeResponsable(responsablesId: string, id: string): Promise<Institution> {
         return this.institutionModel.findByIdAndUpdate(responsablesId, { $pull: { responsables: id } }, { new: true }).exec();
-      }
+    }
 }

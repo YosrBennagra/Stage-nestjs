@@ -10,6 +10,7 @@ import { LoginDto } from "./DTO/Login.dto";
 import * as crypto from 'crypto';
 import EmailService from "../email/email.service";
 import { Role } from "src/Schema/Enum/Role";
+import { TypeAccount } from "src/Schema/Enum/TypeAccount";
 
 @Injectable()
 export class UserService {
@@ -42,13 +43,13 @@ export class UserService {
     const newuser = new this.userModel({
       ...creatUserDto,
       password: hash,
-      Role : Role.STUDENT,
+      Role: Role.STUDENT,
       username: usernameWithNumber,
       isEmailConfirmed: false,
-      isTwoFactorAuthenticationEnabled:false,
-      twoFactorAuthenticationSecret:'',
-      passResetToken:'',
-      profilePicture:'660036990442903a5ff041ff'
+      isTwoFactorAuthenticationEnabled: false,
+      twoFactorAuthenticationSecret: '',
+      passResetToken: '',
+      profilePicture: '660036990442903a5ff041ff'
     });
 
     const savedUser = await newuser.save();
@@ -101,9 +102,35 @@ export class UserService {
     return { users, count };
   }
 
+  async findUsersByStatusNotConfirmed(search: string, limit: number, offset: number): Promise<{ users: User[], count: number }> {
+    const query = { status: TypeAccount.NOTCONFIRMED };
+
+    if (search) {
+      query['$or'] = [
+        { username: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } }
+      ];
+    }
+
+    const users = await this.userModel
+      .find(query)
+      .skip(offset)
+      .limit(limit)
+      .exec();
+
+    const count = await this.userModel.countDocuments(query).exec();
+
+    return { users, count };
+  }
+
+
 
   UpdateUser(id: string, creatuserdto: CreatUserDto) {
     return this.userRe.update(id, creatuserdto);
+  }
+
+  AcceptStudent(id: string) {
+    return this.userModel.findByIdAndUpdate(id,{status: TypeAccount.CONFIRMED} );
   }
 
   UpdateUser2(id: string, firstname: string, lastname: string) {
@@ -135,12 +162,12 @@ export class UserService {
   async deleteUserProfile(userId: string) {
     try {
       const deletedUser = await this.userModel.deleteOne({ userId: userId });
-        console.log('Deleted one user:', deletedUser);
+      console.log('Deleted one user:', deletedUser);
     } catch (error) {
       console.error('Error deleting user:', error);
     }
   }
-  
+
   async setTwoFactorAuthenticationSecret(secret: string, userId: string) {
     return this.userRe.update(userId, {
       twoFactorAuthenticationSecret: secret
@@ -152,43 +179,43 @@ export class UserService {
     if (!userDoc) {
       throw new Error('User not found');
     }
-  
+
 
     const updatedValue = !userDoc.isTwoFactorAuthenticationEnabled;
-  
+
 
     await this.userRe.update(userId, {
       isTwoFactorAuthenticationEnabled: updatedValue
     });
-  
+
 
     return updatedValue;
   }
-  
-  async updateUserProfilePicture(userId: string, ppid: string){
+
+  async updateUserProfilePicture(userId: string, ppid: string) {
     const userDoc = await this.userRe.findById(userId);
     if (!userDoc) {
       throw new Error('User not found');
     }
-    const updatePicture = await this.userRe.update(userId, {profilePicture : ppid})
+    const updatePicture = await this.userRe.update(userId, { profilePicture: ppid })
     return updatePicture;
   }
 
   async updateUserData(userId: string, un: string, fn: string, ln: string) {
     const userDoc = await this.userRe.findById(userId);
     if (!userDoc) {
-        throw new Error('User not found');
+      throw new Error('User not found');
     }
     const parts = userDoc.username.split('#');
     if (parts.length !== 2) {
-        throw new Error('Invalid username format');
+      throw new Error('Invalid username format');
     }
-    console.log('parts',parts);
-    const newUsername = `${un}#${parts[1]}`; 
+    console.log('parts', parts);
+    const newUsername = `${un}#${parts[1]}`;
 
     const updateData = await this.userRe.update(userId, { username: newUsername, firstname: fn, lastname: ln });
     return updateData;
-}
+  }
 
 
 
@@ -200,14 +227,14 @@ export class UserService {
   }
 
   async sendPasswordResetEmail(email: string) {
-   const user = await this.userRe.findByEmail( email );
+    const user = await this.userRe.findByEmail(email);
     if (!user) {
       throw new NotFoundException('User not found');
     }
     const resetToken = crypto.randomBytes(20).toString('hex');
     const resetUrl = `http://localhost:3000/auth/resetpw?token=${resetToken}&email=${email}`;
     const text = resetUrl;
-    await this.userRe.update(user.id,{passResetToken : resetToken})
+    await this.userRe.update(user.id, { passResetToken: resetToken })
     await this.emailService.sendMail({
       to: email,
       subject: 'Password Reset',
@@ -218,10 +245,10 @@ export class UserService {
   async getUserbyInstitution(institution: string): Promise<User[]> {
     const result = await this.userModel.find({ institution }).exec();
     if (!result || result.length === 0) {
-        throw new NotFoundException(`user not found for ${institution}`);
+      throw new NotFoundException(`user not found for ${institution}`);
     }
     return result;
-}
+  }
 
 }
 

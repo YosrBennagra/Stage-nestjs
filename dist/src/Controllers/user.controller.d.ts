@@ -66,6 +66,10 @@ export declare class UsersController {
         count: number;
     }>;
     getUserByEmail(email: string): Promise<User>;
+    getUsersByStatusNotConfirmed(search: string, limit?: number, offset?: number): Promise<{
+        users: User[];
+        count: number;
+    }>;
     UpdateUser(creatUserDto: CreatUserDto, id: string): Promise<User>;
     resetPassword({ email, resetToken, password }: {
         email: string;
@@ -105,4 +109,7 @@ export declare class UsersController {
         user?: undefined;
     }>;
     GetAssignmentResults(id: string): Promise<User[]>;
+    acceptUser(id: string): Promise<mongoose.Document<unknown, {}, User> & User & {
+        _id: mongoose.Types.ObjectId;
+    }>;
 }
