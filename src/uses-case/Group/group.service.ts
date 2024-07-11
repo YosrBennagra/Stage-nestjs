@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Role } from 'src/Schema/Enum/Role';
 import { Group } from 'src/Schema/Group.Schema';
 import { User } from 'src/Schema/User.Schema';
 
@@ -20,7 +21,7 @@ export class GroupService {
 
 
   async findAll(): Promise<Group[]> {
-    return this.groupModel.find().populate('users');
+    return this.groupModel.find().populate('users').exec();
   }
 
   async findOne(id: string): Promise<Group> {
@@ -43,6 +44,9 @@ export class GroupService {
   async removeUser(groupId: string, id: string): Promise<Group> {
     return this.groupModel.findByIdAndUpdate(groupId, { $pull: { users: id } }, { new: true }).exec();
   }
+
+
+
 }
 function getRandomHexColor() {
   const letters = '0123456789ABCDEF';

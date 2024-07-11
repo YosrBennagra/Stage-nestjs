@@ -15,4 +15,5 @@ export declare class AssignmentController {
     updateAssignedUsers(assignmentId: string, userIdsToAdd: string[]): Promise<any>;
     updateAssignedGroups(assignmentId: string, groupIdsToAdd: string[]): Promise<any>;
     updatePasseduser(assignmentId: string, id: string): Promise<any>;
+    getAssignmentsByUserId(userId: string): Promise<Assignment[]>;
 }

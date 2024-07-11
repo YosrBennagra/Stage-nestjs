@@ -9,7 +9,7 @@ export class AssignmentController {
     constructor(private readonly assignmentService: AssignmentService) { }
 
     @Public()
-    @Post()
+    @Post() 
     async create(@Body() createAssignmentDto: any): Promise<Assignment> {
         return this.assignmentService.create(createAssignmentDto);
     }
@@ -146,5 +146,18 @@ export class AssignmentController {
             throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
         }
     }
-
+    @Public()
+    @Get('assignedToUserOrGroup/:userId')
+    async getAssignmentsByUserId(@Param('userId') userId: string): Promise<Assignment[]> {
+        try {
+            const assignments = await this.assignmentService.getAssignmentsByUserId(userId);
+            if (!assignments) {
+                throw new NotFoundException(`Assignments for userId ${userId} not found`);
+            }
+            return assignments;
+        } catch (error) {
+            console.error('Error fetching assignments:', error);
+            throw error;
+        }
+    }
 }

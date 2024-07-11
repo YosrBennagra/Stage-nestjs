@@ -49,9 +49,11 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Assignment } from 'src/Schema/Assignment.Schema';
+import { Group } from 'src/Schema/Group.Schema';
 export declare class AssignmentService {
     private assignmentModel;
-    constructor(assignmentModel: Model<Assignment>);
+    private groupModel;
+    constructor(assignmentModel: Model<Assignment>, groupModel: Model<Group>);
     create(createAssignmentDto: any): Promise<Assignment>;
     findAll(): Promise<Assignment[]>;
     findOne(id: string): Promise<Assignment>;
@@ -64,4 +66,8 @@ export declare class AssignmentService {
     updateAssignedUsers(assignmentId: string, newAssignedUsers: string[]): Promise<Assignment>;
     updateAssignedGroups(assignmentId: string, newAssignedGroups: string[]): Promise<Assignment>;
     updatePassUser(assignmentId: string, id: string): Promise<Assignment>;
+    getAssignmentsByUserId(userId: string): Promise<Assignment[]>;
+    getGroupsByUserId(userId: string): Promise<string[]>;
+    handleAssignmentStatusUpdates(): Promise<void>;
+    private updateAssignmentsStatus;
 }

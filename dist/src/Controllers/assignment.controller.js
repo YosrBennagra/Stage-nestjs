@@ -118,6 +118,19 @@ let AssignmentController = class AssignmentController {
             throw new Error(`Failed to update assigned users for assignment ${assignmentId}: ${error.message}`);
         }
     }
+    async getAssignmentsByUserId(userId) {
+        try {
+            const assignments = await this.assignmentService.getAssignmentsByUserId(userId);
+            if (!assignments) {
+                throw new common_1.NotFoundException(`Assignments for userId ${userId} not found`);
+            }
+            return assignments;
+        }
+        catch (error) {
+            console.error('Error fetching assignments:', error);
+            throw error;
+        }
+    }
 };
 exports.AssignmentController = AssignmentController;
 __decorate([
@@ -223,6 +236,14 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], AssignmentController.prototype, "updatePasseduser", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('assignedToUserOrGroup/:userId'),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AssignmentController.prototype, "getAssignmentsByUserId", null);
 exports.AssignmentController = AssignmentController = __decorate([
     (0, common_1.Controller)('assignments'),
     __metadata("design:paramtypes", [assignment_service_1.AssignmentService])

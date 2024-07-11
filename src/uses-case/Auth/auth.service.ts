@@ -15,38 +15,38 @@ export class AuthService {
   ) { }
 
 
-  async signIn(email: string, pass: string): Promise<{ 
-    access_token: string, 
-    user: any , 
-    userId: string , 
-    useremail:string, 
-    username: string, 
-    faSecret: string, 
-    isTwoFactorAuthenticationEnabled:Boolean,
-    isEmailConfirmed:Boolean,
-    profilePicture:string,
-    role:string,
-    institution?:string,
+  async signIn(email: string, pass: string): Promise<{
+    access_token: string,
+    user: any,
+    userId: string,
+    useremail: string,
+    username: string,
+    faSecret: string,
+    isTwoFactorAuthenticationEnabled: Boolean,
+    isEmailConfirmed: Boolean,
+    profilePicture: string,
+    role: string,
+    institution?: string,
   }> {
     const user = (await this.userService.findUserByEmail(email));
     const isMatch = await bcrypt.compare(pass, user?.password);
     if (!isMatch) {
       throw new UnauthorizedException('Invalid password');
     }
-    const payload = { sub: user.id, username: user.username, email: user.email};
-    console.log("od:",user.id , user.username, user.email)
+    const payload = { sub: user.id, username: user.username, email: user.email };
+    console.log("od:", user.id, user.username, user.email)
     return {
       access_token: await this.jwtService.signAsync(payload),
-      user: user, 
+      user: user,
       userId: user.id,
-      useremail:user.email,
-      username:user.username,
-      faSecret:user.twoFactorAuthenticationSecret,
-      isTwoFactorAuthenticationEnabled : user.isTwoFactorAuthenticationEnabled,
+      useremail: user.email,
+      username: user.username,
+      faSecret: user.twoFactorAuthenticationSecret,
+      isTwoFactorAuthenticationEnabled: user.isTwoFactorAuthenticationEnabled,
       isEmailConfirmed: user.isEmailConfirmed,
-      profilePicture:user.profilePicture,
-      role:user.Role,
-      institution:user.institution.toString(),
+      profilePicture: user.profilePicture,
+      role: user.Role,
+      institution: user.institution,
     };
   }
 
@@ -68,7 +68,7 @@ export class AuthService {
       secret: this.configService.get('JWT_REFRESH_TOKEN_SECRET'),
       expiresIn: `${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}s`
     });
-    const cookie = `Refresh=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`; 
+    const cookie = `Refresh=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_REFRESH_TOKEN_EXPIRATION_TIME')}`;
     return {
       cookie,
       token

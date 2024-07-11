@@ -15,13 +15,15 @@ const mongoose_1 = require("@nestjs/mongoose");
 const User_Schema_1 = require("../../Schema/User.Schema");
 const email_service_1 = require("../email/email.service");
 const config_1 = require("@nestjs/config");
+const Group_Schema_1 = require("../../Schema/Group.Schema");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: User_Schema_1.User.name, schema: User_Schema_1.UserSchema }
-            ]),
+        imports: [
+            mongoose_1.MongooseModule.forFeature([{ name: User_Schema_1.User.name, schema: User_Schema_1.UserSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: Group_Schema_1.Group.name, schema: Group_Schema_1.GroupSchema }]),
         ],
         controllers: [user_controller_1.UsersController],
         providers: [

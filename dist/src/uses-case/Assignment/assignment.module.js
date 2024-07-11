@@ -12,12 +12,13 @@ const mongoose_1 = require("@nestjs/mongoose");
 const assignment_service_1 = require("./assignment.service");
 const Assignment_Schema_1 = require("../../Schema/Assignment.Schema");
 const assignment_controller_1 = require("../../Controllers/assignment.controller");
+const Group_Schema_1 = require("../../Schema/Group.Schema");
 let AssignmentModule = class AssignmentModule {
 };
 exports.AssignmentModule = AssignmentModule;
 exports.AssignmentModule = AssignmentModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: Assignment_Schema_1.Assignment.name, schema: Assignment_Schema_1.AssignmentSchema }]),
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: Assignment_Schema_1.Assignment.name, schema: Assignment_Schema_1.AssignmentSchema }]), mongoose_1.MongooseModule.forFeature([{ name: Group_Schema_1.Group.name, schema: Group_Schema_1.GroupSchema }]),
         ],
         providers: [assignment_service_1.AssignmentService],
         controllers: [assignment_controller_1.AssignmentController],

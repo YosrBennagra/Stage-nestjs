@@ -15,13 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssignmentService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const schedule_1 = require("@nestjs/schedule");
 const date_fns_1 = require("date-fns");
 const mongoose_2 = require("mongoose");
 const Assignment_Schema_1 = require("../../Schema/Assignment.Schema");
 const TypeStatus_1 = require("../../Schema/Enum/TypeStatus");
+const Group_Schema_1 = require("../../Schema/Group.Schema");
 let AssignmentService = class AssignmentService {
-    constructor(assignmentModel) {
+    constructor(assignmentModel, groupModel) {
         this.assignmentModel = assignmentModel;
+        this.groupModel = groupModel;
     }
     async create(createAssignmentDto) {
         const createAtdate = new Date();
@@ -130,11 +133,76 @@ let AssignmentService = class AssignmentService {
         const updatedAssignment = await this.assignmentModel.findByIdAndUpdate(assignmentId, { $push: { userpassed: id } }, { new: true }).exec();
         return updatedAssignment;
     }
+    async getAssignmentsByUserId(userId) {
+        try {
+            const assignments = await this.assignmentModel.find({
+                $and: [
+                    {
+                        $or: [
+                            { assignedToUsers: userId },
+                            { assignedToGroups: { $in: await this.getGroupsByUserId(userId) } }
+                        ]
+                    },
+                    {
+                        $or: [
+                            { isInterval: false },
+                            { openAt: { $lte: new Date() } }
+                        ]
+                    }
+                ]
+            }).exec();
+            const filteredAssignments = assignments.filter(assignment => !assignment.isInterval || new Date(assignment.openAt) <= new Date());
+            return filteredAssignments;
+        }
+        catch (error) {
+            console.error('Error fetching assignments:', error);
+            throw error;
+        }
+    }
+    async getGroupsByUserId(userId) {
+        try {
+            const groups = await this.groupModel.find({ users: userId }).exec();
+            return groups.map(group => group._id);
+        }
+        catch (error) {
+            console.error('Error fetching groups:', error);
+            throw error;
+        }
+    }
+    async handleAssignmentStatusUpdates() {
+        try {
+            await this.updateAssignmentsStatus();
+        }
+        catch (error) {
+            console.error('Error updating assignment statuses:', error);
+        }
+    }
+    async updateAssignmentsStatus() {
+        const assignments = await this.assignmentModel.find();
+        const now = new Date();
+        for (const assignment of assignments) {
+            if (new Date(assignment.openAt) <= now) {
+                assignment.status = TypeStatus_1.TypeStatus.OPEN;
+                await assignment.save();
+            }
+            if (new Date(assignment.closedAt) <= now) {
+                assignment.status = TypeStatus_1.TypeStatus.ENDED;
+                await assignment.save();
+            }
+        }
+    }
 };
 exports.AssignmentService = AssignmentService;
+__decorate([
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_SECOND),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AssignmentService.prototype, "handleAssignmentStatusUpdates", null);
 exports.AssignmentService = AssignmentService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(Assignment_Schema_1.Assignment.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(Group_Schema_1.Group.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
 ], AssignmentService);
 //# sourceMappingURL=assignment.service.js.map

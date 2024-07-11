@@ -22,10 +22,9 @@ import { GroupModule } from './uses-case/Group/group.module';
 import { InstitutionModule } from './uses-case/Institution/institution.module';
 import { SubjectModule } from './uses-case/Subject/subject.module';
 import { LessonModule } from './uses-case/lesson/lesson.module';
-
-
-
-
+import { ClassroomModule } from './uses-case/Classroom/classroom.module';
+import { SchedulesModule } from './uses-case/Schedule/schedules.module';
+import { SalaryModule } from './uses-case/Salary/salary.module';
 
 @Module({
   imports: [
@@ -39,13 +38,16 @@ import { LessonModule } from './uses-case/lesson/lesson.module';
     QuestionModule,
     ResultModule,
     AnswerModule,
+    ClassroomModule,
     AssignmentModule,
     GroupModule,
     InstitutionModule,
     SubjectModule,
     LessonModule,
+    SalaryModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
+    SchedulesModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         EMAIL_SERVICE: Joi.string().required(),

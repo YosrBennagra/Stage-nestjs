@@ -63,4 +63,5 @@ export declare class ResultService {
     remove(id: string): Promise<Result>;
     calculateAndSaveResults(studentId: string): Promise<Result[]>;
     getResultByStudentAndAssignment(studentId: string, assignmentId: string): Promise<Result>;
+    getResultByStudent(studentId: string): Promise<Result[]>;
 }

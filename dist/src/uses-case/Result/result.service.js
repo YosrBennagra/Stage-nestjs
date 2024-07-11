@@ -59,7 +59,7 @@ let ResultService = class ResultService {
             const results = await this.answerModel.aggregate([
                 {
                     $match: {
-                        studentId: new mongoose_2.default.Types.ObjectId("6671bc926e9424140ed74951")
+                        studentId: new mongoose_2.default.Types.ObjectId(studentId)
                     }
                 },
                 {
@@ -103,6 +103,13 @@ let ResultService = class ResultService {
         const result = await this.resultModel.findOne({ studentId, assignmentId }).exec();
         if (!result) {
             throw new common_1.NotFoundException(`Result for student ID ${studentId} and assignment ID ${assignmentId} not found`);
+        }
+        return result;
+    }
+    async getResultByStudent(studentId) {
+        const result = await this.resultModel.find({ studentId }).populate('assignmentId').exec();
+        if (!result) {
+            throw new common_1.NotFoundException(`Result for student ID ${studentId} `);
         }
         return result;
     }

@@ -73,5 +73,18 @@ export class ResultController {
     }
   }
 
+  @Public()
+  @Get('/student/:studentId')
+  async GetAssignmentResultsByStudent(
+    @Param('studentId') studentId: string,
+  ): Promise<Result[]> {
+    try {
+      return await this.resultService.getResultByStudent(
+        studentId,
+      );
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
 }

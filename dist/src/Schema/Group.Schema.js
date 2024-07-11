@@ -27,6 +27,10 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [{ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }] }),
     __metadata("design:type", Array)
 ], Group.prototype, "users", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Subject' }),
+    __metadata("design:type", String)
+], Group.prototype, "subject", void 0);
 exports.Group = Group = __decorate([
     (0, mongoose_1.Schema)()
 ], Group);

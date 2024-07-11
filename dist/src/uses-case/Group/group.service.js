@@ -31,7 +31,7 @@ let GroupService = class GroupService {
         return createdGroup.save();
     }
     async findAll() {
-        return this.groupModel.find().populate('users');
+        return this.groupModel.find().populate('users').exec();
     }
     async findOne(id) {
         return (await this.groupModel.findById(id)).populate('users');

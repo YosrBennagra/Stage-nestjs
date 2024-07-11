@@ -52,6 +52,7 @@ export declare class Group extends Document {
     name: string;
     color: string;
     users: mongoose.Schema.Types.ObjectId[];
+    subject: string;
 }
 export declare const GroupSchema: mongoose.Schema<Group, mongoose.Model<Group, any, any, any, mongoose.Document<unknown, any, Group> & Group & {
     _id: mongoose.Types.ObjectId;

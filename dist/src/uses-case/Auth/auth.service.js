@@ -40,7 +40,7 @@ let AuthService = class AuthService {
             isEmailConfirmed: user.isEmailConfirmed,
             profilePicture: user.profilePicture,
             role: user.Role,
-            institution: user.institution.toString(),
+            institution: user.institution,
         };
     }
     getCookieWithJwtAccessToken(userId, isSecondFactorAuthenticated = false) {

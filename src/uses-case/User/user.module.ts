@@ -8,12 +8,13 @@ import { User, UserSchema } from 'src/Schema/User.Schema';
 import { EmailConfirmationService } from '../Auth/EmailConfirmation/emailConfirmation.service';
 import EmailService from '../email/email.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Group, GroupSchema } from 'src/Schema/Group.Schema';
 
 @Module({
 
-  imports:[    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }
-    ]),
-    
+  imports: [
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Group.name, schema: GroupSchema }]),
 
   ],
   controllers: [UsersController],
@@ -32,4 +33,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   exports: [UserService]
 
 })
-export class UserModule {}
+export class UserModule { }

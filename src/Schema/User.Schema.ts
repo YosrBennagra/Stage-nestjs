@@ -2,6 +2,7 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { Role } from "./Enum/Role";
 import { TypeAccount } from './Enum/TypeAccount';
+import { TypeSalary } from './Enum/TypeSalary';
 
 @Schema()
 export class User extends Document {
@@ -48,6 +49,7 @@ export class User extends Document {
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Institution' })
   institution?: string;
+
 
 }
 

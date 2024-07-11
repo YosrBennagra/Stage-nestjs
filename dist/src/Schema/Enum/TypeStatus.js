@@ -6,6 +6,5 @@ var TypeStatus;
     TypeStatus["OPEN"] = "open";
     TypeStatus["ENDED"] = "ended";
     TypeStatus["PENDING"] = "pending";
-    TypeStatus["Closed"] = "closed";
 })(TypeStatus || (exports.TypeStatus = TypeStatus = {}));
 //# sourceMappingURL=TypeStatus.js.map

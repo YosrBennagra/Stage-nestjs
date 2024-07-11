@@ -28,6 +28,9 @@ const group_module_1 = require("./uses-case/Group/group.module");
 const institution_module_1 = require("./uses-case/Institution/institution.module");
 const subject_module_1 = require("./uses-case/Subject/subject.module");
 const lesson_module_1 = require("./uses-case/lesson/lesson.module");
+const classroom_module_1 = require("./uses-case/Classroom/classroom.module");
+const schedules_module_1 = require("./uses-case/Schedule/schedules.module");
+const salary_module_1 = require("./uses-case/Salary/salary.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,13 +47,16 @@ exports.AppModule = AppModule = __decorate([
             question_module_1.QuestionModule,
             result_module_1.ResultModule,
             answer_module_1.AnswerModule,
+            classroom_module_1.ClassroomModule,
             assignment_module_1.AssignmentModule,
             group_module_1.GroupModule,
             institution_module_1.InstitutionModule,
             subject_module_1.SubjectModule,
             lesson_module_1.LessonModule,
+            salary_module_1.SalaryModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,
+            schedules_module_1.SchedulesModule,
             config_1.ConfigModule.forRoot({
                 validationSchema: Joi.object({
                     EMAIL_SERVICE: Joi.string().required(),

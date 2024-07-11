@@ -9,9 +9,11 @@ export class Group extends Document {
   @Prop({ required: true })
   color: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]})
   users: mongoose.Schema.Types.ObjectId[];
 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Subject' })
+  subject: string;
 }
 
 export const GroupSchema = SchemaFactory.createForClass(Group);
