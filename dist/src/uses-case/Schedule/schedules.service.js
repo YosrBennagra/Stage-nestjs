@@ -18,10 +18,12 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const Salary_Schema_1 = require("../../Schema/Salary.Schema");
 const Schedules_Schema_1 = require("../../Schema/Schedules.Schema");
+const User_Schema_1 = require("../../Schema/User.Schema");
 let SchedulesService = class SchedulesService {
-    constructor(scheduleModel, salaryModel) {
+    constructor(scheduleModel, salaryModel, userModel) {
         this.scheduleModel = scheduleModel;
         this.salaryModel = salaryModel;
+        this.userModel = userModel;
     }
     async getSchedule(classId) {
         return this.scheduleModel.findOne({ classId }).exec();
@@ -38,6 +40,9 @@ exports.SchedulesService = SchedulesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(Schedules_Schema_1.Schedules.name)),
     __param(1, (0, mongoose_1.InjectModel)(Salary_Schema_1.Salary.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model, mongoose_2.Model])
+    __param(2, (0, mongoose_1.InjectModel)(User_Schema_1.User.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], SchedulesService);
 //# sourceMappingURL=schedules.service.js.map

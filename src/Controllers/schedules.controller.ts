@@ -18,7 +18,7 @@ export class SchedulesController {
     async findAll(): Promise<Schedules[]> {
         return this.schedulesService.findAll();
     }
-    @Public()
+
 
     @Public()
     @Post(':classId')

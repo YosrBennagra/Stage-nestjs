@@ -18,4 +18,4 @@ export class Schedules extends Document {
 }
 
 
-export const SchedulesSchema = SchemaFactory.createForClass(Schedules); 
+export const SchedulesSchema = SchemaFactory.createForClass(Schedules);

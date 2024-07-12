@@ -31,6 +31,7 @@ const lesson_module_1 = require("./uses-case/lesson/lesson.module");
 const classroom_module_1 = require("./uses-case/Classroom/classroom.module");
 const schedules_module_1 = require("./uses-case/Schedule/schedules.module");
 const salary_module_1 = require("./uses-case/Salary/salary.module");
+const userInfo_module_1 = require("./uses-case/UserInfo/userInfo.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -54,6 +55,7 @@ exports.AppModule = AppModule = __decorate([
             subject_module_1.SubjectModule,
             lesson_module_1.LessonModule,
             salary_module_1.SalaryModule,
+            userInfo_module_1.UserInfoModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,
             schedules_module_1.SchedulesModule,

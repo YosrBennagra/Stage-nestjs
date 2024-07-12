@@ -55,6 +55,7 @@ export declare class GroupService {
     private userModel;
     constructor(groupModel: Model<Group>, userModel: Model<User>);
     create(createGroupDto: any): Promise<Group>;
+    getGroupsByUserId(userId: string): Promise<Group[]>;
     findAll(): Promise<Group[]>;
     findOne(id: string): Promise<Group>;
     update(id: string, updateGroupDto: any): Promise<Group>;

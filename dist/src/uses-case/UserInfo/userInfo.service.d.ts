@@ -48,15 +48,14 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
-import { Salary } from 'src/Schema/Salary.Schema';
-import { Schedules } from 'src/Schema/Schedules.Schema';
-import { User } from 'src/Schema/User.Schema';
-export declare class SchedulesService {
-    private scheduleModel;
-    private salaryModel;
-    private userModel;
-    constructor(scheduleModel: Model<Schedules>, salaryModel: Model<Salary>, userModel: Model<User>);
-    getSchedule(classId: string): Promise<Schedules | null>;
-    createSchedule(classId: string, createScheduleDto: any): Promise<Schedules>;
-    findAll(): Promise<Schedules[]>;
+import { UserInfo } from 'src/Schema/UserInfo.Schema';
+export declare class UserInfoService {
+    private UserInfoModel;
+    constructor(UserInfoModel: Model<UserInfo>);
+    createUserInfo(createUserInfoDto: any): Promise<UserInfo>;
+    findAll(): Promise<UserInfo[]>;
+    findOne(id: string): Promise<UserInfo>;
+    update(id: string, updateUserInfoDto: any): Promise<UserInfo>;
+    delete(id: string): Promise<UserInfo>;
+    findByGroupId(groupId: string): Promise<UserInfo>;
 }

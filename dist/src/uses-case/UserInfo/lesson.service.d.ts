@@ -1,3 +1,5 @@
+/// <reference types="multer" />
+/// <reference types="multer-gridfs-storage" />
 /// <reference types="mongoose/types/aggregate" />
 /// <reference types="mongoose/types/callback" />
 /// <reference types="mongoose/types/collection" />
@@ -48,15 +50,16 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
-import { Salary } from 'src/Schema/Salary.Schema';
-import { Schedules } from 'src/Schema/Schedules.Schema';
-import { User } from 'src/Schema/User.Schema';
-export declare class SchedulesService {
-    private scheduleModel;
-    private salaryModel;
-    private userModel;
-    constructor(scheduleModel: Model<Schedules>, salaryModel: Model<Salary>, userModel: Model<User>);
-    getSchedule(classId: string): Promise<Schedules | null>;
-    createSchedule(classId: string, createScheduleDto: any): Promise<Schedules>;
-    findAll(): Promise<Schedules[]>;
+import { Lesson } from 'src/Schema/Lesson.Schema';
+import { FileService } from '../FileUpload/file.service';
+export declare class LessonService {
+    private lessonModel;
+    private fileService;
+    constructor(lessonModel: Model<Lesson>, fileService: FileService);
+    createLesson(createLessonDto: any, files: Express.Multer.File[]): Promise<Lesson>;
+    findAll(): Promise<Lesson[]>;
+    findOne(id: string): Promise<Lesson>;
+    update(id: string, updateLessonDto: any): Promise<Lesson>;
+    delete(id: string): Promise<Lesson>;
+    findByGroupId(groupId: string): Promise<Lesson[]>;
 }

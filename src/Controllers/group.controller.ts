@@ -48,5 +48,9 @@ export class GroupController {
   async removeUser(@Param('groupId') groupId: string, @Param('id') id: string): Promise<Group> {
     return this.groupService.removeUser(groupId, id);
   }
-
+  @Public()
+  @Get('user/:userId')
+  async getGroupsByUserId(@Param('userId') userId: string): Promise<Group[]> {
+    return this.groupService.getGroupsByUserId(userId);
+  }
 }

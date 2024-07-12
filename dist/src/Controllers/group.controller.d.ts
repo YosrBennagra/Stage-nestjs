@@ -10,4 +10,5 @@ export declare class GroupController {
     delete(id: string): Promise<Group>;
     addUser(groupId: string, id: string): Promise<Group>;
     removeUser(groupId: string, id: string): Promise<Group>;
+    getGroupsByUserId(userId: string): Promise<Group[]>;
 }

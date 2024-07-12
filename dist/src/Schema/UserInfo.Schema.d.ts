@@ -47,16 +47,14 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
-import { Salary } from 'src/Schema/Salary.Schema';
-import { Schedules } from 'src/Schema/Schedules.Schema';
-import { User } from 'src/Schema/User.Schema';
-export declare class SchedulesService {
-    private scheduleModel;
-    private salaryModel;
-    private userModel;
-    constructor(scheduleModel: Model<Schedules>, salaryModel: Model<Salary>, userModel: Model<User>);
-    getSchedule(classId: string): Promise<Schedules | null>;
-    createSchedule(classId: string, createScheduleDto: any): Promise<Schedules>;
-    findAll(): Promise<Schedules[]>;
+import mongoose, { Document } from 'mongoose';
+export declare class UserInfo extends Document {
+    user: string;
+    classroom?: string;
+    institution?: string;
 }
+export declare const UserInfoSchema: mongoose.Schema<UserInfo, mongoose.Model<UserInfo, any, any, any, mongoose.Document<unknown, any, UserInfo> & UserInfo & {
+    _id: mongoose.Types.ObjectId;
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, UserInfo, mongoose.Document<unknown, {}, mongoose.FlatRecord<UserInfo>> & mongoose.FlatRecord<UserInfo> & {
+    _id: mongoose.Types.ObjectId;
+}>;

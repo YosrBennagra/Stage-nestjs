@@ -48,7 +48,6 @@ __decorate([
 ], SchedulesController.prototype, "findAll", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, public_decorator_1.Public)(),
     (0, common_1.Post)(':classId'),
     __param(0, (0, common_1.Param)('classId')),
     __param(1, (0, common_1.Body)()),

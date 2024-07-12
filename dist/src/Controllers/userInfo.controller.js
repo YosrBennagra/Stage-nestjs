@@ -12,40 +12,34 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GroupController = void 0;
+exports.UserInfoController = void 0;
 const common_1 = require("@nestjs/common");
 const public_decorator_1 = require("../Custom Decorators/public.decorator");
-const group_service_1 = require("../uses-case/Group/group.service");
-let GroupController = class GroupController {
-    constructor(groupService) {
-        this.groupService = groupService;
+const userInfo_service_1 = require("../uses-case/UserInfo/userInfo.service");
+let UserInfoController = class UserInfoController {
+    constructor(userInfoService) {
+        this.userInfoService = userInfoService;
     }
-    async create(createGroupDto) {
-        return this.groupService.create(createGroupDto);
+    async createLesson(createLessonDto) {
+        return this.userInfoService.createUserInfo(createLessonDto);
     }
     async findAll() {
-        return this.groupService.findAll();
+        return this.userInfoService.findAll();
     }
     async findOne(id) {
-        return this.groupService.findOne(id);
+        return this.userInfoService.findOne(id);
     }
-    async update(id, updateGroupDto) {
-        return this.groupService.update(id, updateGroupDto);
+    async update(id, updateLessonDto) {
+        return this.userInfoService.update(id, updateLessonDto);
     }
     async delete(id) {
-        return this.groupService.delete(id);
+        return this.userInfoService.delete(id);
     }
-    async addUser(groupId, id) {
-        return this.groupService.addUser(groupId, id);
-    }
-    async removeUser(groupId, id) {
-        return this.groupService.removeUser(groupId, id);
-    }
-    async getGroupsByUserId(userId) {
-        return this.groupService.getGroupsByUserId(userId);
+    async findByGroupId(groupId) {
+        return this.userInfoService.findByGroupId(groupId);
     }
 };
-exports.GroupController = GroupController;
+exports.UserInfoController = UserInfoController;
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Post)(),
@@ -53,14 +47,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "create", null);
+], UserInfoController.prototype, "createLesson", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "findAll", null);
+], UserInfoController.prototype, "findAll", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(':id'),
@@ -68,7 +62,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "findOne", null);
+], UserInfoController.prototype, "findOne", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Put)(':id'),
@@ -77,7 +71,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "update", null);
+], UserInfoController.prototype, "update", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Delete)(':id'),
@@ -85,35 +79,17 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "delete", null);
+], UserInfoController.prototype, "delete", null);
 __decorate([
     (0, public_decorator_1.Public)(),
-    (0, common_1.Put)(':groupId/addUser/:id'),
+    (0, common_1.Get)('/byuser/:groupId'),
     __param(0, (0, common_1.Param)('groupId')),
-    __param(1, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], GroupController.prototype, "addUser", null);
-__decorate([
-    (0, public_decorator_1.Public)(),
-    (0, common_1.Put)(':groupId/removeUser/:id'),
-    __param(0, (0, common_1.Param)('groupId')),
-    __param(1, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
-    __metadata("design:returntype", Promise)
-], GroupController.prototype, "removeUser", null);
-__decorate([
-    (0, public_decorator_1.Public)(),
-    (0, common_1.Get)('user/:userId'),
-    __param(0, (0, common_1.Param)('userId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "getGroupsByUserId", null);
-exports.GroupController = GroupController = __decorate([
-    (0, common_1.Controller)('groups'),
-    __metadata("design:paramtypes", [group_service_1.GroupService])
-], GroupController);
-//# sourceMappingURL=group.controller.js.map
+], UserInfoController.prototype, "findByGroupId", null);
+exports.UserInfoController = UserInfoController = __decorate([
+    (0, common_1.Controller)('userinfos'),
+    __metadata("design:paramtypes", [userInfo_service_1.UserInfoService])
+], UserInfoController);
+//# sourceMappingURL=userInfo.controller.js.map

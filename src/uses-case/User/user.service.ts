@@ -44,7 +44,6 @@ export class UserService {
     const newuser = new this.userModel({
       ...creatUserDto,
       password: hash,
-      Role: Role.STUDENT,
       username: usernameWithNumber,
       isEmailConfirmed: false,
       isTwoFactorAuthenticationEnabled: false,

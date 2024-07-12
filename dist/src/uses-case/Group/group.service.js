@@ -30,6 +30,13 @@ let GroupService = class GroupService {
         });
         return createdGroup.save();
     }
+    async getGroupsByUserId(userId) {
+        const groups = await this.groupModel.find({ users: userId }).populate('users').populate('subject').exec();
+        if (!groups) {
+            throw new common_1.NotFoundException('No groups found for this user');
+        }
+        return groups;
+    }
     async findAll() {
         return this.groupModel.find().populate('users').exec();
     }

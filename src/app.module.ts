@@ -25,6 +25,7 @@ import { LessonModule } from './uses-case/lesson/lesson.module';
 import { ClassroomModule } from './uses-case/Classroom/classroom.module';
 import { SchedulesModule } from './uses-case/Schedule/schedules.module';
 import { SalaryModule } from './uses-case/Salary/salary.module';
+import { UserInfoModule } from './uses-case/UserInfo/userInfo.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { SalaryModule } from './uses-case/Salary/salary.module';
     SubjectModule,
     LessonModule,
     SalaryModule,
+    UserInfoModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     SchedulesModule,

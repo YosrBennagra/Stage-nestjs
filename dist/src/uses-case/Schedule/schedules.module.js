@@ -13,13 +13,16 @@ const schedules_service_1 = require("./schedules.service");
 const schedules_controller_1 = require("../../Controllers/schedules.controller");
 const Schedules_Schema_1 = require("../../Schema/Schedules.Schema");
 const Salary_Schema_1 = require("../../Schema/Salary.Schema");
+const User_Schema_1 = require("../../Schema/User.Schema");
 let SchedulesModule = class SchedulesModule {
 };
 exports.SchedulesModule = SchedulesModule;
 exports.SchedulesModule = SchedulesModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: Schedules_Schema_1.Schedules.name, schema: Schedules_Schema_1.SchedulesSchema }]), mongoose_1.MongooseModule.forFeature([{ name: Salary_Schema_1.Salary.name, schema: Salary_Schema_1.SalarySchema }])
+            mongoose_1.MongooseModule.forFeature([{ name: Schedules_Schema_1.Schedules.name, schema: Schedules_Schema_1.SchedulesSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: Salary_Schema_1.Salary.name, schema: Salary_Schema_1.SalarySchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: User_Schema_1.User.name, schema: User_Schema_1.UserSchema }])
         ],
         controllers: [schedules_controller_1.SchedulesController],
         providers: [schedules_service_1.SchedulesService],

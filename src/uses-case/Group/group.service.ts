@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Role } from 'src/Schema/Enum/Role';
@@ -18,7 +18,13 @@ export class GroupService {
 
     return createdGroup.save();
   }
-
+  async getGroupsByUserId(userId: string): Promise<Group[]> {
+    const groups = await this.groupModel.find({ users: userId }).populate('users').populate('subject').exec();
+    if (!groups) {
+      throw new NotFoundException('No groups found for this user');
+    }
+    return groups;
+  }
 
   async findAll(): Promise<Group[]> {
     return this.groupModel.find().populate('users').exec();
