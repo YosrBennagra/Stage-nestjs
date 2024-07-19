@@ -23,7 +23,27 @@ export class SchedulesService {
     }
 
     async findAll(): Promise<Schedules[]> {
-        return this.scheduleModel.find().populate('schedule').populate({ path: 'schedule', populate: { path: 'users' } }).exec();
+        return this.scheduleModel.find().populate('schedule').exec();
+    }
+    async getScheduleByClassId(classId: string): Promise<Schedules[]> {
+        return this.scheduleModel.find({ classId }).populate('subject').populate('teacher').exec();
+    }
+    async createOrUpdateSchedule(classId: string, scheduleData: any): Promise<Schedules[]> {
+        await this.scheduleModel.deleteMany({ classId }).exec();
+        const schedules = scheduleData.map((entry) => ({
+            classId,
+            subject: entry.subject,
+            teacher: entry.teacher,
+            day: entry.day,
+            time: entry.time,
+        }));
+
+        await this.scheduleModel.insertMany(schedules);
+        return this.scheduleModel.find({ classId }).populate('subject').populate('teacher').exec();
     }
 
+
+    async removeScheduleEntry(scheduleId: string): Promise<void> {
+        await this.scheduleModel.findByIdAndDelete(scheduleId).exec();
+    }
 }

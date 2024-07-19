@@ -32,6 +32,8 @@ const classroom_module_1 = require("./uses-case/Classroom/classroom.module");
 const schedules_module_1 = require("./uses-case/Schedule/schedules.module");
 const salary_module_1 = require("./uses-case/Salary/salary.module");
 const userInfo_module_1 = require("./uses-case/UserInfo/userInfo.module");
+const timeSlot_module_1 = require("./uses-case/TimeSlot/timeSlot.module");
+const file_module_1 = require("./uses-case/FileUpload/file.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -58,7 +60,9 @@ exports.AppModule = AppModule = __decorate([
             userInfo_module_1.UserInfoModule,
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             openai_module_1.OpenaiModule,
+            timeSlot_module_1.TimeSlotModule,
             schedules_module_1.SchedulesModule,
+            file_module_1.FilesModule,
             config_1.ConfigModule.forRoot({
                 validationSchema: Joi.object({
                     EMAIL_SERVICE: Joi.string().required(),

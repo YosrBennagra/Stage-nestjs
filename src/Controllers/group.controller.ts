@@ -12,7 +12,7 @@ export class GroupController {
   async create(@Body() createGroupDto: any): Promise<Group> {
     return this.groupService.create(createGroupDto);
   }
-  
+
   @Public()
   @Get()
   async findAll(): Promise<Group[]> {

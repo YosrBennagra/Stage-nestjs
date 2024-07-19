@@ -9,34 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SalarySchema = exports.Salary = void 0;
+exports.AssignmentDurationSchema = exports.AssignmentDuration = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let Salary = class Salary extends mongoose_2.Document {
+let AssignmentDuration = class AssignmentDuration extends mongoose_2.Document {
 };
-exports.Salary = Salary;
+exports.AssignmentDuration = AssignmentDuration;
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", Number)
+], AssignmentDuration.prototype, "duration", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
     __metadata("design:type", String)
-], Salary.prototype, "TeacherId", void 0);
+], AssignmentDuration.prototype, "user", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: false }),
-    __metadata("design:type", Boolean)
-], Salary.prototype, "salaryType", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: 0 }),
-    __metadata("design:type", Number)
-], Salary.prototype, "salary", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: 0 }),
-    __metadata("design:type", Number)
-], Salary.prototype, "salaryPerHour", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: false, default: 0 }),
-    __metadata("design:type", Number)
-], Salary.prototype, "hours", void 0);
-exports.Salary = Salary = __decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Assignment' }),
+    __metadata("design:type", String)
+], AssignmentDuration.prototype, "assignmennt", void 0);
+exports.AssignmentDuration = AssignmentDuration = __decorate([
     (0, mongoose_1.Schema)()
-], Salary);
-exports.SalarySchema = mongoose_1.SchemaFactory.createForClass(Salary);
-//# sourceMappingURL=Salary.Schema.js.map
+], AssignmentDuration);
+exports.AssignmentDurationSchema = mongoose_1.SchemaFactory.createForClass(AssignmentDuration);
+//# sourceMappingURL=AssignmentDuration.Schema.js.map

@@ -12,92 +12,44 @@ import { Schedules } from 'src/Schema/Schedules.Schema';
 @Injectable()
 export class SalaryService {
     constructor(
-        @InjectModel(User.name) private readonly userModel: Model<User>,
         @InjectModel(Salary.name) private readonly salaryModel: Model<Salary>,
-        @InjectModel(Group.name) private readonly groupModel: Model<Group>,
-        @InjectModel(Schedules.name) private readonly schedulesModel: Model<Salary>
+
     ) { }
 
-
-    async calculateTeacherHours(teacherId: string): Promise<number> {
-        const teacherObjectId = new mongoose.Types.ObjectId(teacherId);
-
-        const aggregationResult = await this.schedulesModel.aggregate([
-            {
-                $lookup: {
-                    from: 'groups',
-                    localField: 'schedule',
-                    foreignField: '_id',
-                    as: 'groups',
-                },
-            },
-            {
-                $unwind: '$groups',
-            },
-            {
-                $match: {
-                    'groups.users': teacherObjectId,
-                },
-            },
-            {
-                $project: {
-                    schedule: 1,
-                    groups: 1,
-                },
-            },
-            {
-                $addFields: {
-                    scheduleArray: { $objectToArray: "$schedule" },
-                },
-            },
-            {
-                $unwind: "$scheduleArray",
-            },
-            {
-                $match: {
-                    "scheduleArray.v": { $in: ["667766c0133adba1723381dd"] }
-                },
-            },
-            {
-                $group: {
-                    _id: teacherObjectId,
-                    totalHours: { $sum: 1 },
-                },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    totalHours: 1,
-                },
-            },
-        ]);
-
-        console.log("🚀 ~ file: salary.service.ts:61 ~ SalaryService ~ calculateTeacherHours ~ aggregationResult:", aggregationResult);
-
-        return aggregationResult[0]?.totalHours || 0;
+    async getSalary(): Promise<Salary[]> {
+        return this.salaryModel.find().exec();
     }
 
-    async FillTeachers(): Promise<void> {
-        try {
-            const teachers = await this.userModel.find({ Role: Role.TEACHER });
-            for (const teacher of teachers) {
-                const existingSalary = await this.salaryModel.findOne({ TeacherId: teacher._id });
+    async createOrUpdateSalary(teacherId: string, updates: Partial<Salary>): Promise<Salary> {
+        let salary = await this.salaryModel.findOne({ TeacherId: teacherId });
 
-                const hours = await this.calculateTeacherHours(teacher._id.toString());
-
-                if (existingSalary) {
-                    existingSalary.hours = hours;
-                    await existingSalary.save();
-                } else {
-                    await this.salaryModel.create({ TeacherId: teacher._id, hours });
-                }
-            }
-        } catch (error) {
-            console.error('Error filling salaries for teachers:', error);
-            throw error;
+        if (!salary) {
+            salary = new this.salaryModel({ TeacherId: teacherId, ...updates });
+        } else {
+            Object.assign(salary, updates);
         }
+        if (salary.salaryType) {
+            salary.salary = (salary.hours ?? 0) * (salary.salaryPerHour ?? 0);
+        } else {
+            salary.salary = updates.salary ?? salary.salary;
+        }
+        await salary.save();
+        return salary;
     }
 
+    async updateSalary(teacherId: string, updates: Partial<Salary>): Promise<Salary> {
+        const salary = await this.salaryModel.findOneAndUpdate(
+            { TeacherId: teacherId },
+            { $set: updates },
+            { new: true }
+        );
+        if (salary.salaryType) {
+            salary.salary = (salary.hours ?? 0) * (salary.salaryPerHour ?? 0);
+        } else {
+            salary.salary = updates.salary ?? salary.salary;
+        }
 
-
+        await salary.save();
+        return salary;
+    }
 }

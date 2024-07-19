@@ -48,15 +48,13 @@
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import mongoose, { Document } from 'mongoose';
-export declare class Salary extends Document {
-    TeacherId: string;
-    salaryType?: boolean;
-    salary?: number;
-    salaryPerHour?: number;
-    hours?: number;
+export declare class AssignmentDuration extends Document {
+    duration?: number;
+    user?: string;
+    assignmennt?: string;
 }
-export declare const SalarySchema: mongoose.Schema<Salary, mongoose.Model<Salary, any, any, any, mongoose.Document<unknown, any, Salary> & Salary & {
+export declare const AssignmentDurationSchema: mongoose.Schema<AssignmentDuration, mongoose.Model<AssignmentDuration, any, any, any, mongoose.Document<unknown, any, AssignmentDuration> & AssignmentDuration & {
     _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Salary, mongoose.Document<unknown, {}, mongoose.FlatRecord<Salary>> & mongoose.FlatRecord<Salary> & {
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, AssignmentDuration, mongoose.Document<unknown, {}, mongoose.FlatRecord<AssignmentDuration>> & mongoose.FlatRecord<AssignmentDuration> & {
     _id: mongoose.Types.ObjectId;
 }>;

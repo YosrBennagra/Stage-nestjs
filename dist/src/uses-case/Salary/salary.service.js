@@ -16,103 +16,47 @@ exports.SalaryService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const Role_1 = require("../../Schema/Enum/Role");
 const Salary_Schema_1 = require("../../Schema/Salary.Schema");
-const User_Schema_1 = require("../../Schema/User.Schema");
-const Group_Schema_1 = require("../../Schema/Group.Schema");
-const Schedules_Schema_1 = require("../../Schema/Schedules.Schema");
 let SalaryService = class SalaryService {
-    constructor(userModel, salaryModel, groupModel, schedulesModel) {
-        this.userModel = userModel;
+    constructor(salaryModel) {
         this.salaryModel = salaryModel;
-        this.groupModel = groupModel;
-        this.schedulesModel = schedulesModel;
     }
-    async calculateTeacherHours(teacherId) {
-        const teacherObjectId = new mongoose_2.default.Types.ObjectId(teacherId);
-        const aggregationResult = await this.schedulesModel.aggregate([
-            {
-                $lookup: {
-                    from: 'groups',
-                    localField: 'schedule',
-                    foreignField: '_id',
-                    as: 'groups',
-                },
-            },
-            {
-                $unwind: '$groups',
-            },
-            {
-                $match: {
-                    'groups.users': teacherObjectId,
-                },
-            },
-            {
-                $project: {
-                    schedule: 1,
-                    groups: 1,
-                },
-            },
-            {
-                $addFields: {
-                    scheduleArray: { $objectToArray: "$schedule" },
-                },
-            },
-            {
-                $unwind: "$scheduleArray",
-            },
-            {
-                $match: {
-                    "scheduleArray.v": { $in: ["667766c0133adba1723381dd"] }
-                },
-            },
-            {
-                $group: {
-                    _id: teacherObjectId,
-                    totalHours: { $sum: 1 },
-                },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    totalHours: 1,
-                },
-            },
-        ]);
-        console.log("🚀 ~ file: salary.service.ts:61 ~ SalaryService ~ calculateTeacherHours ~ aggregationResult:", aggregationResult);
-        return aggregationResult[0]?.totalHours || 0;
+    async getSalary() {
+        return this.salaryModel.find().exec();
     }
-    async FillTeachers() {
-        try {
-            const teachers = await this.userModel.find({ Role: Role_1.Role.TEACHER });
-            for (const teacher of teachers) {
-                const existingSalary = await this.salaryModel.findOne({ TeacherId: teacher._id });
-                const hours = await this.calculateTeacherHours(teacher._id.toString());
-                if (existingSalary) {
-                    existingSalary.hours = hours;
-                    await existingSalary.save();
-                }
-                else {
-                    await this.salaryModel.create({ TeacherId: teacher._id, hours });
-                }
-            }
+    async createOrUpdateSalary(teacherId, updates) {
+        let salary = await this.salaryModel.findOne({ TeacherId: teacherId });
+        if (!salary) {
+            salary = new this.salaryModel({ TeacherId: teacherId, ...updates });
         }
-        catch (error) {
-            console.error('Error filling salaries for teachers:', error);
-            throw error;
+        else {
+            Object.assign(salary, updates);
         }
+        if (salary.salaryType) {
+            salary.salary = (salary.hours ?? 0) * (salary.salaryPerHour ?? 0);
+        }
+        else {
+            salary.salary = updates.salary ?? salary.salary;
+        }
+        await salary.save();
+        return salary;
+    }
+    async updateSalary(teacherId, updates) {
+        const salary = await this.salaryModel.findOneAndUpdate({ TeacherId: teacherId }, { $set: updates }, { new: true });
+        if (salary.salaryType) {
+            salary.salary = (salary.hours ?? 0) * (salary.salaryPerHour ?? 0);
+        }
+        else {
+            salary.salary = updates.salary ?? salary.salary;
+        }
+        await salary.save();
+        return salary;
     }
 };
 exports.SalaryService = SalaryService;
 exports.SalaryService = SalaryService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(User_Schema_1.User.name)),
-    __param(1, (0, mongoose_1.InjectModel)(Salary_Schema_1.Salary.name)),
-    __param(2, (0, mongoose_1.InjectModel)(Group_Schema_1.Group.name)),
-    __param(3, (0, mongoose_1.InjectModel)(Schedules_Schema_1.Schedules.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model,
-        mongoose_2.Model,
-        mongoose_2.Model,
-        mongoose_2.Model])
+    __param(0, (0, mongoose_1.InjectModel)(Salary_Schema_1.Salary.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model])
 ], SalaryService);
 //# sourceMappingURL=salary.service.js.map

@@ -42,6 +42,9 @@ let UserInfoService = class UserInfoService {
     async findByGroupId(groupId) {
         return this.UserInfoModel.findOne({ user: groupId }).exec();
     }
+    async findByIns(groupId) {
+        return this.UserInfoModel.find({ institution: groupId }).populate('user').exec();
+    }
 };
 exports.UserInfoService = UserInfoService;
 exports.UserInfoService = UserInfoService = __decorate([

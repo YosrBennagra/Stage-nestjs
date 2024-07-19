@@ -26,6 +26,8 @@ import { ClassroomModule } from './uses-case/Classroom/classroom.module';
 import { SchedulesModule } from './uses-case/Schedule/schedules.module';
 import { SalaryModule } from './uses-case/Salary/salary.module';
 import { UserInfoModule } from './uses-case/UserInfo/userInfo.module';
+import { TimeSlotModule } from './uses-case/TimeSlot/timeSlot.module';
+import { FilesModule } from './uses-case/FileUpload/file.module';
 
 @Module({
   imports: [
@@ -49,7 +51,9 @@ import { UserInfoModule } from './uses-case/UserInfo/userInfo.module';
     UserInfoModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
+    TimeSlotModule,
     SchedulesModule,
+    FilesModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         EMAIL_SERVICE: Joi.string().required(),

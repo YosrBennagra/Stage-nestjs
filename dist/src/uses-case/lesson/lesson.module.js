@@ -13,12 +13,13 @@ const Lesson_Schema_1 = require("../../Schema/Lesson.Schema");
 const lesson_service_1 = require("./lesson.service");
 const lesson_controller_1 = require("../../Controllers/lesson.controller");
 const file_service_1 = require("../FileUpload/file.service");
+const file_schema_1 = require("../../Schema/file.schema");
 let LessonModule = class LessonModule {
 };
 exports.LessonModule = LessonModule;
 exports.LessonModule = LessonModule = __decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: Lesson_Schema_1.Lesson.name, schema: Lesson_Schema_1.LessonSchema }]),
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: Lesson_Schema_1.Lesson.name, schema: Lesson_Schema_1.LessonSchema }]), mongoose_1.MongooseModule.forFeature([{ name: File.name, schema: file_schema_1.FileSchema }])
         ],
         providers: [lesson_service_1.LessonService, file_service_1.FileService],
         controllers: [lesson_controller_1.LessonController],

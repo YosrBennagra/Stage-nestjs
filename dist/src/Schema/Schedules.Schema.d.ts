@@ -47,13 +47,16 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Document, Types } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 export declare class Schedules extends Document {
     classId: string;
-    schedule: Map<string, Types.ObjectId>;
+    subject?: string;
+    teacher?: string;
+    day: string;
+    time: string;
 }
-export declare const SchedulesSchema: import("mongoose").Schema<Schedules, import("mongoose").Model<Schedules, any, any, any, Document<unknown, any, Schedules> & Schedules & {
+export declare const SchedulesSchema: mongoose.Schema<Schedules, mongoose.Model<Schedules, any, any, any, mongoose.Document<unknown, any, Schedules> & Schedules & {
     _id: Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Schedules, Document<unknown, {}, import("mongoose").FlatRecord<Schedules>> & import("mongoose").FlatRecord<Schedules> & {
+}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Schedules, mongoose.Document<unknown, {}, mongoose.FlatRecord<Schedules>> & mongoose.FlatRecord<Schedules> & {
     _id: Types.ObjectId;
 }>;

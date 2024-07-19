@@ -49,14 +49,10 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
 import { Model } from 'mongoose';
 import { Salary } from 'src/Schema/Salary.Schema';
-import { User } from 'src/Schema/User.Schema';
-import { Group } from 'src/Schema/Group.Schema';
 export declare class SalaryService {
-    private readonly userModel;
     private readonly salaryModel;
-    private readonly groupModel;
-    private readonly schedulesModel;
-    constructor(userModel: Model<User>, salaryModel: Model<Salary>, groupModel: Model<Group>, schedulesModel: Model<Salary>);
-    calculateTeacherHours(teacherId: string): Promise<number>;
-    FillTeachers(): Promise<void>;
+    constructor(salaryModel: Model<Salary>);
+    getSalary(): Promise<Salary[]>;
+    createOrUpdateSalary(teacherId: string, updates: Partial<Salary>): Promise<Salary>;
+    updateSalary(teacherId: string, updates: Partial<Salary>): Promise<Salary>;
 }

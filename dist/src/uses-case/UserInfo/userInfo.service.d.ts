@@ -58,4 +58,5 @@ export declare class UserInfoService {
     update(id: string, updateUserInfoDto: any): Promise<UserInfo>;
     delete(id: string): Promise<UserInfo>;
     findByGroupId(groupId: string): Promise<UserInfo>;
+    findByIns(groupId: string): Promise<UserInfo[]>;
 }

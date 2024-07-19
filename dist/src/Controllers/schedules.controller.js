@@ -21,13 +21,19 @@ let SchedulesController = class SchedulesController {
         this.schedulesService = schedulesService;
     }
     async getSchedule(classId) {
-        return this.schedulesService.getSchedule(classId);
+        return this.schedulesService.getScheduleByClassId(classId);
     }
     async findAll() {
         return this.schedulesService.findAll();
     }
-    async createSchedule(classId, createScheduleDto) {
-        return this.schedulesService.createSchedule(classId, createScheduleDto);
+    async getScheduleByClassId(classId) {
+        return this.schedulesService.getScheduleByClassId(classId);
+    }
+    async createOrUpdateSchedule(classId, scheduleData) {
+        return this.schedulesService.createOrUpdateSchedule(classId, scheduleData);
+    }
+    async removeScheduleEntry(scheduleId) {
+        await this.schedulesService.removeScheduleEntry(scheduleId);
     }
 };
 exports.SchedulesController = SchedulesController;
@@ -48,13 +54,29 @@ __decorate([
 ], SchedulesController.prototype, "findAll", null);
 __decorate([
     (0, public_decorator_1.Public)(),
+    (0, common_1.Get)(':classId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SchedulesController.prototype, "getScheduleByClassId", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)(':classId'),
     __param(0, (0, common_1.Param)('classId')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
-], SchedulesController.prototype, "createSchedule", null);
+], SchedulesController.prototype, "createOrUpdateSchedule", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Delete)(':scheduleId'),
+    __param(0, (0, common_1.Param)('scheduleId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], SchedulesController.prototype, "removeScheduleEntry", null);
 exports.SchedulesController = SchedulesController = __decorate([
     (0, common_1.Controller)('schedules'),
     __metadata("design:paramtypes", [schedules_service_1.SchedulesService])

@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
-import { TypeSalary } from './Enum/TypeSalary';
+
 
 @Schema()
 export class Salary extends Document {
@@ -9,16 +9,18 @@ export class Salary extends Document {
     TeacherId: string;
 
     @Prop({ required: false })
-    salaryType?: TypeSalary;
+    salaryType?: boolean;
 
-    @Prop({ required: false })
+    @Prop({ required: false, default: 0 })
     salary?: number;
 
-    @Prop({ required: false })
+    @Prop({ required: false, default: 0 })
     salaryPerHour?: number;
 
-    @Prop({ required: false })
+    @Prop({ required: false, default: 0 })
     hours?: number;
+
+
 }
 
 export const SalarySchema = SchemaFactory.createForClass(Salary);

@@ -38,6 +38,9 @@ let UserInfoController = class UserInfoController {
     async findByGroupId(groupId) {
         return this.userInfoService.findByGroupId(groupId);
     }
+    async findByIns(groupId) {
+        return this.userInfoService.findByIns(groupId);
+    }
 };
 exports.UserInfoController = UserInfoController;
 __decorate([
@@ -88,6 +91,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserInfoController.prototype, "findByGroupId", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Get)('/byIns/:groupId'),
+    __param(0, (0, common_1.Param)('groupId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserInfoController.prototype, "findByIns", null);
 exports.UserInfoController = UserInfoController = __decorate([
     (0, common_1.Controller)('userinfos'),
     __metadata("design:paramtypes", [userInfo_service_1.UserInfoService])

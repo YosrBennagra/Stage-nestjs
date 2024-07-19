@@ -20,13 +20,21 @@ __decorate([
     __metadata("design:type", String)
 ], Schedules.prototype, "classId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
-        required: true,
-        type: Map,
-        of: { type: mongoose_2.Types.ObjectId, ref: 'Group' },
-    }),
-    __metadata("design:type", Map)
-], Schedules.prototype, "schedule", void 0);
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Subject' }),
+    __metadata("design:type", String)
+], Schedules.prototype, "subject", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'User' }),
+    __metadata("design:type", String)
+], Schedules.prototype, "teacher", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Schedules.prototype, "day", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Schedules.prototype, "time", void 0);
 exports.Schedules = Schedules = __decorate([
     (0, mongoose_1.Schema)()
 ], Schedules);

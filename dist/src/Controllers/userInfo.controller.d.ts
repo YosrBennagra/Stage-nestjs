@@ -9,4 +9,5 @@ export declare class UserInfoController {
     update(id: string, updateLessonDto: any): Promise<UserInfo>;
     delete(id: string): Promise<UserInfo>;
     findByGroupId(groupId: string): Promise<UserInfo>;
+    findByIns(groupId: string): Promise<UserInfo[]>;
 }

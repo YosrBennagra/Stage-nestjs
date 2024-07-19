@@ -3,11 +3,11 @@ import mongoose, { Document } from 'mongoose';
 
 @Schema()
 export class Result extends Document {
-  
-  @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
   assignmentId: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User'  })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   studentId: string;
 
   @Prop({ required: true })

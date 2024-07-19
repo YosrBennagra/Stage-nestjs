@@ -43,4 +43,10 @@ export class UserInfoController {
   async findByGroupId(@Param('groupId') groupId: string): Promise<UserInfo> {
     return this.userInfoService.findByGroupId(groupId);
   }
+
+  @Public()
+  @Get('/byIns/:groupId')
+  async findByIns(@Param('groupId') groupId: string): Promise<UserInfo[]> {
+    return this.userInfoService.findByIns(groupId);
+  }
 }

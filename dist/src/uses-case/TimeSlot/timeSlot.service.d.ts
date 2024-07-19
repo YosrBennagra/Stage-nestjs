@@ -47,16 +47,12 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import mongoose, { Document } from 'mongoose';
-export declare class Salary extends Document {
-    TeacherId: string;
-    salaryType?: boolean;
-    salary?: number;
-    salaryPerHour?: number;
-    hours?: number;
+import { Model } from 'mongoose';
+import { TimeSlot } from 'src/Schema/TimeSlot.Schema';
+export declare class TimeSlotService {
+    private readonly timeSlotModel;
+    constructor(timeSlotModel: Model<TimeSlot>);
+    createTimeSlot(day: string, time: string, classId: string): Promise<TimeSlot>;
+    getTimeSlotsByClassId(classId: string): Promise<TimeSlot[]>;
+    deleteTimeSlot(id: string): Promise<TimeSlot>;
 }
-export declare const SalarySchema: mongoose.Schema<Salary, mongoose.Model<Salary, any, any, any, mongoose.Document<unknown, any, Salary> & Salary & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, Salary, mongoose.Document<unknown, {}, mongoose.FlatRecord<Salary>> & mongoose.FlatRecord<Salary> & {
-    _id: mongoose.Types.ObjectId;
-}>;

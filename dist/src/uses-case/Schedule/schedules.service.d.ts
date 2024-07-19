@@ -59,4 +59,7 @@ export declare class SchedulesService {
     getSchedule(classId: string): Promise<Schedules | null>;
     createSchedule(classId: string, createScheduleDto: any): Promise<Schedules>;
     findAll(): Promise<Schedules[]>;
+    getScheduleByClassId(classId: string): Promise<Schedules[]>;
+    createOrUpdateSchedule(classId: string, scheduleData: any): Promise<Schedules[]>;
+    removeScheduleEntry(scheduleId: string): Promise<void>;
 }

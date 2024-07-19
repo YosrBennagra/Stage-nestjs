@@ -1,5 +1,3 @@
-/// <reference types="multer" />
-/// <reference types="multer-gridfs-storage" />
 /// <reference types="mongoose/types/aggregate" />
 /// <reference types="mongoose/types/callback" />
 /// <reference types="mongoose/types/collection" />
@@ -49,17 +47,14 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import { Model } from 'mongoose';
-import { Lesson } from 'src/Schema/Lesson.Schema';
-import { FileService } from '../FileUpload/file.service';
-export declare class LessonService {
-    private lessonModel;
-    private fileService;
-    constructor(lessonModel: Model<Lesson>, fileService: FileService);
-    createLesson(createLessonDto: any, files: Express.Multer.File[]): Promise<Lesson>;
-    findAll(): Promise<Lesson[]>;
-    findOne(id: string): Promise<Lesson>;
-    update(id: string, updateLessonDto: any): Promise<Lesson>;
-    delete(id: string): Promise<Lesson>;
-    findByGroupId(groupId: string): Promise<Lesson[]>;
+import { Document } from 'mongoose';
+export declare class TimeSlot extends Document {
+    day: string;
+    time: string;
+    classId: string;
 }
+export declare const TimeSlotSchema: import("mongoose").Schema<TimeSlot, import("mongoose").Model<TimeSlot, any, any, any, Document<unknown, any, TimeSlot> & TimeSlot & {
+    _id: import("mongoose").Types.ObjectId;
+}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, TimeSlot, Document<unknown, {}, import("mongoose").FlatRecord<TimeSlot>> & import("mongoose").FlatRecord<TimeSlot> & {
+    _id: import("mongoose").Types.ObjectId;
+}>;

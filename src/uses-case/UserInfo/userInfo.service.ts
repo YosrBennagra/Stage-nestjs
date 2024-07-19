@@ -1,9 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UserInfo } from 'src/Schema/UserInfo.Schema';
-import { FileService } from '../FileUpload/file.service';
-import { FileUploadDto } from '../FileUpload/model/FileUploadDto';
 
 @Injectable()
 export class UserInfoService {
@@ -35,5 +33,9 @@ export class UserInfoService {
 
   async findByGroupId(groupId: string): Promise<UserInfo> {
     return this.UserInfoModel.findOne({ user: groupId }).exec();
+  }
+
+  async findByIns(groupId: string): Promise<UserInfo[]> {
+    return this.UserInfoModel.find({ institution: groupId }).populate('user').exec();
   }
 }
