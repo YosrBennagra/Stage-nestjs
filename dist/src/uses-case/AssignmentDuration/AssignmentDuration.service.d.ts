@@ -47,14 +47,21 @@
 /// <reference types="multer-gridfs-storage/node_modules/mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
 /// <reference types="multer-gridfs-storage/node_modules/mongoose/types/inferschematype" />
-import mongoose, { Document } from 'mongoose';
-export declare class AssignmentDuration extends Document {
-    duration?: number;
-    user?: string;
-    assignment?: string;
+import { Model } from 'mongoose';
+import { Assignment } from 'src/Schema/Assignment.Schema';
+import { AssignmentDuration } from 'src/Schema/AssignmentDuration.Schema';
+export declare class AssignmentDurationService {
+    private assignmentDurationModel;
+    private readonly assignmentModel;
+    private readonly logger;
+    constructor(assignmentDurationModel: Model<AssignmentDuration>, assignmentModel: Model<Assignment>);
+    createAssignmentDuration(userId: string, assignmentId: string): Promise<AssignmentDuration>;
+    handleCron(): Promise<void>;
+    findAll(): Promise<AssignmentDuration[]>;
+    findOne(id: string): Promise<AssignmentDuration>;
+    update(id: string, duration: number): Promise<AssignmentDuration>;
+    remove(id: string): Promise<AssignmentDuration>;
+    getRemainingDuration(assignmentId: string, userId: string): Promise<{
+        remainingDuration: number;
+    }>;
 }
-export declare const AssignmentDurationSchema: mongoose.Schema<AssignmentDuration, mongoose.Model<AssignmentDuration, any, any, any, mongoose.Document<unknown, any, AssignmentDuration> & AssignmentDuration & {
-    _id: mongoose.Types.ObjectId;
-}, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, AssignmentDuration, mongoose.Document<unknown, {}, mongoose.FlatRecord<AssignmentDuration>> & mongoose.FlatRecord<AssignmentDuration> & {
-    _id: mongoose.Types.ObjectId;
-}>;

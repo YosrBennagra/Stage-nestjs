@@ -28,6 +28,7 @@ import { SalaryModule } from './uses-case/Salary/salary.module';
 import { UserInfoModule } from './uses-case/UserInfo/userInfo.module';
 import { TimeSlotModule } from './uses-case/TimeSlot/timeSlot.module';
 import { FilesModule } from './uses-case/FileUpload/file.module';
+import { AssignmentDurationModule } from './uses-case/AssignmentDuration/assignmentDuration.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { FilesModule } from './uses-case/FileUpload/file.module';
     LessonModule,
     SalaryModule,
     UserInfoModule,
+    AssignmentDurationModule,
     ConfigModule.forRoot({ isGlobal: true }),
     OpenaiModule,
     TimeSlotModule,

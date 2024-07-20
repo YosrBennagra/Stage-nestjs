@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: 'Assignment' }),
     __metadata("design:type", String)
-], AssignmentDuration.prototype, "assignmennt", void 0);
+], AssignmentDuration.prototype, "assignment", void 0);
 exports.AssignmentDuration = AssignmentDuration = __decorate([
     (0, mongoose_1.Schema)()
 ], AssignmentDuration);

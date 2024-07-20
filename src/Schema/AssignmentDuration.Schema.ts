@@ -14,7 +14,7 @@ export class AssignmentDuration extends Document {
   user?: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' })
-  assignmennt?: string;
+  assignment?: string;
 
 }
 
