@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, UploadedFiles, UseInterceptors, NotFoundException } from '@nestjs/common';
 import { Public } from 'src/Custom Decorators/public.decorator';
 import { UserInfo } from 'src/Schema/UserInfo.Schema';
 import { UserInfoService } from 'src/uses-case/UserInfo/userInfo.service';
@@ -37,6 +37,13 @@ export class UserInfoController {
   async delete(@Param('id') id: string): Promise<UserInfo> {
     return this.userInfoService.delete(id);
   }
+  @Public()
+  @Delete('/user/:id')
+  async deletebyuser(@Param('id') id: string): Promise<UserInfo> {
+    return this.userInfoService.deleteByUserId(id);
+  }
+
+
 
   @Public()
   @Get('/byuser/:groupId')

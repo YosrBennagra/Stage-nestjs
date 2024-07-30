@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, Query } from '@nestjs/common';
 import { Public } from 'src/Custom Decorators/public.decorator';
 import { Classroom } from 'src/Schema/Classroom.Schema';
 import { ClassroomService } from 'src/uses-case/Classroom/classroom.service';
@@ -15,8 +15,12 @@ export class ClassroomController {
 
   @Public()
   @Get()
-  async findAll(): Promise<Classroom[]> {
-    return this.classroomService.findAll();
+  async findAll(
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+    @Query('search') search: string = ''
+  ): Promise<{ classrooms: Classroom[], total: number }> {
+    return this.classroomService.findAll(page, limit, search);
   }
 
   @Public()

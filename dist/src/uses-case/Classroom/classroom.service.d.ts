@@ -53,7 +53,10 @@ export declare class ClassroomService {
     private classroomModel;
     constructor(classroomModel: Model<Classroom>);
     create(createClassroomDto: any): Promise<Classroom>;
-    findAll(): Promise<Classroom[]>;
+    findAll(page: number, limit: number, search: string): Promise<{
+        classrooms: Classroom[];
+        total: number;
+    }>;
     findOne(id: string): Promise<Classroom>;
     update(id: string, updateClassroomDto: any): Promise<Classroom>;
     delete(id: string): Promise<Classroom>;

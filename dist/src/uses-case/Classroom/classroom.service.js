@@ -25,11 +25,19 @@ let ClassroomService = class ClassroomService {
         const createdclassroom = new this.classroomModel(createClassroomDto);
         return createdclassroom.save();
     }
-    async findAll() {
-        return this.classroomModel.find().populate('groups').populate({
-            path: 'groups',
-            populate: { path: 'subject' }
-        }).exec();
+    async findAll(page, limit, search) {
+        page = Math.max(1, page);
+        limit = Math.max(1, limit);
+        const query = search ? { name: { $regex: search, $options: 'i' } } : {};
+        const skip = (page - 1) * limit;
+        const classrooms = await this.classroomModel.find(query)
+            .populate('groups')
+            .populate({ path: 'groups', populate: { path: 'subject' } })
+            .skip(skip)
+            .limit(limit)
+            .exec();
+        const total = await this.classroomModel.countDocuments(query).exec();
+        return { classrooms, total };
     }
     async findOne(id) {
         return this.classroomModel.findById(id).populate({

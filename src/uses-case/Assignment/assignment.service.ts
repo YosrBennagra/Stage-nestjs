@@ -27,7 +27,7 @@ export class AssignmentService {
   }
 
   async findAll(): Promise<Assignment[]> {
-    return this.assignmentModel.find().exec();
+    return this.assignmentModel.find().populate('createdBy').exec();
   }
 
   async findOne(id: string): Promise<Assignment> {
@@ -189,7 +189,7 @@ export class AssignmentService {
             ]
           }
         ]
-      }).exec();
+      }).populate('createdBy').exec();
       const filteredAssignments = assignments.filter(assignment =>
         !assignment.isInterval || new Date(assignment.openAt) <= new Date()
     );

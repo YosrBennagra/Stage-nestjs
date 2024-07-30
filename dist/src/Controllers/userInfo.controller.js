@@ -35,6 +35,9 @@ let UserInfoController = class UserInfoController {
     async delete(id) {
         return this.userInfoService.delete(id);
     }
+    async deletebyuser(id) {
+        return this.userInfoService.deleteByUserId(id);
+    }
     async findByGroupId(groupId) {
         return this.userInfoService.findByGroupId(groupId);
     }
@@ -83,6 +86,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserInfoController.prototype, "delete", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Delete)('/user/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserInfoController.prototype, "deletebyuser", null);
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)('/byuser/:groupId'),

@@ -45,6 +45,13 @@ let UserInfoService = class UserInfoService {
     async findByIns(groupId) {
         return this.UserInfoModel.find({ institution: groupId }).populate('user').exec();
     }
+    async deleteByUserId(userId) {
+        const deletedUserInfo = await this.UserInfoModel.findOneAndDelete({ user: userId }).exec();
+        if (!deletedUserInfo) {
+            throw new common_1.NotFoundException(`User with ID ${userId} not found`);
+        }
+        return deletedUserInfo;
+    }
 };
 exports.UserInfoService = UserInfoService;
 exports.UserInfoService = UserInfoService = __decorate([

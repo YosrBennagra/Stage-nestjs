@@ -39,7 +39,7 @@ let AssignmentService = class AssignmentService {
         return createdAssignment.save();
     }
     async findAll() {
-        return this.assignmentModel.find().exec();
+        return this.assignmentModel.find().populate('createdBy').exec();
     }
     async findOne(id) {
         const assignment = await this.assignmentModel.findById(id).populate('assignedToUsers').populate('assignedToGroups').exec();
@@ -150,7 +150,7 @@ let AssignmentService = class AssignmentService {
                         ]
                     }
                 ]
-            }).exec();
+            }).populate('createdBy').exec();
             const filteredAssignments = assignments.filter(assignment => !assignment.isInterval || new Date(assignment.openAt) <= new Date());
             return filteredAssignments;
         }

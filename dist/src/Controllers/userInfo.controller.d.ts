@@ -8,6 +8,7 @@ export declare class UserInfoController {
     findOne(id: string): Promise<UserInfo>;
     update(id: string, updateLessonDto: any): Promise<UserInfo>;
     delete(id: string): Promise<UserInfo>;
+    deletebyuser(id: string): Promise<UserInfo>;
     findByGroupId(groupId: string): Promise<UserInfo>;
     findByIns(groupId: string): Promise<UserInfo[]>;
 }

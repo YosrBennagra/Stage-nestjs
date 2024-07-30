@@ -34,6 +34,7 @@ export class UsersController {
   @Public()
   @Delete('deleteuser/:id')
   async DeleteUser(@Param('id') id: string) {
+    console.log("🚀 ~ file: user.controller.ts:37 ~ UsersController ~ DeleteUser ~ id:", id);
     const isValid = mongoose.Types.ObjectId.isValid(id);
     if (!isValid) throw new HttpException('invalide ID', 400);
     const deleteuser = await this.usersService.deleteUser(id);

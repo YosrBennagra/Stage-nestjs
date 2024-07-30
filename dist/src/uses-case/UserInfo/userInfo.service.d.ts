@@ -59,4 +59,5 @@ export declare class UserInfoService {
     delete(id: string): Promise<UserInfo>;
     findByGroupId(groupId: string): Promise<UserInfo>;
     findByIns(groupId: string): Promise<UserInfo[]>;
+    deleteByUserId(userId: string): Promise<UserInfo>;
 }

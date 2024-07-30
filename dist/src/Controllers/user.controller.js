@@ -37,6 +37,7 @@ let UsersController = class UsersController {
         return this.usersService.findAll();
     }
     async DeleteUser(id) {
+        console.log("🚀 ~ file: user.controller.ts:37 ~ UsersController ~ DeleteUser ~ id:", id);
         const isValid = mongoose_1.default.Types.ObjectId.isValid(id);
         if (!isValid)
             throw new common_1.HttpException('invalide ID', 400);

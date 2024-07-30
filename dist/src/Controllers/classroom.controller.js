@@ -23,8 +23,8 @@ let ClassroomController = class ClassroomController {
     async create(createClassroomDto) {
         return this.classroomService.create(createClassroomDto);
     }
-    async findAll() {
-        return this.classroomService.findAll();
+    async findAll(page = 1, limit = 10, search = '') {
+        return this.classroomService.findAll(page, limit, search);
     }
     async findOne(id) {
         return this.classroomService.findOne(id);
@@ -48,8 +48,11 @@ __decorate([
 __decorate([
     (0, public_decorator_1.Public)(),
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('search')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number, String]),
     __metadata("design:returntype", Promise)
 ], ClassroomController.prototype, "findAll", null);
 __decorate([
